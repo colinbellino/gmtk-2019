@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitFacade : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class UnitFacade : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI _nameText;
 	[SerializeField] private Transform _floatingMessageContainer;
 	[SerializeField] private FloatingMessageFacade _floatingMessagePrefab;
+	[SerializeField] private Slider _healthSlider;
 
 	public Unit Unit => _unit;
 	private Unit _unit;
@@ -24,6 +26,11 @@ public class UnitFacade : MonoBehaviour
 		_unit = unit;
 		SetName(unit.Name);
 		SetAlliance(unit.Alliance);
+	}
+
+	private void Update()
+	{
+		_healthSlider.value = (float) _unit.Health.Current / (float) _unit.Health.Max;
 	}
 
 	public void DrawLineTo(Vector3 endPoint)
@@ -40,6 +47,18 @@ public class UnitFacade : MonoBehaviour
 
 		_messages.Add(message);
 		StartCoroutine(RemoveMessage(message));
+	}
+
+	public void Damage(int value)
+	{
+		_unit.Health.Current = _unit.Health.Current - value;
+		CreateMessage(value.ToString(), Color.white);
+	}
+
+	public void Heal(int value)
+	{
+		_unit.Health.Current = _unit.Health.Current + value;
+		CreateMessage(value.ToString(), Color.green);
 	}
 
 	private IEnumerator RemoveMessage(FloatingMessageFacade message)

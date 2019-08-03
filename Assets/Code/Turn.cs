@@ -37,16 +37,16 @@ public class Turn
 		switch (_action.Ability)
 		{
 			case Abilities.LightPunch:
-				_action.Target.CreateMessage("10", Color.white);
+				_action.Target.Damage(1);
 				break;
 			case Abilities.StrongPunch:
-				_action.Target.CreateMessage("20", Color.white);
+				_action.Target.Damage(1);
 				break;
 			case Abilities.LightHeal:
-				_action.Target.CreateMessage("10", Color.green);
+				_action.Target.Heal(1);
 				break;
 			case Abilities.StrongHeal:
-				_action.Target.CreateMessage("20", Color.green);
+				_action.Target.Heal(2);
 				break;
 		}
 	}

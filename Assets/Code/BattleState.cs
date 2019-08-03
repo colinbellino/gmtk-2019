@@ -14,10 +14,10 @@ public class BattleStateManager
 	public UIFacade UIFacade;
 	public Unit[] Units = new Unit[]
 	{
-		new Unit("Ally1", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Ally),
-			new Unit("Ally2", new Abilities[] { Abilities.LightHeal, Abilities.StrongHeal }, Alliances.Ally),
-			new Unit("Foe1", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Foe),
-			new Unit("Foe2", new Abilities[] { Abilities.LightHeal, Abilities.StrongHeal }, Alliances.Foe)
+		new Unit("Ally1", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Ally, 5),
+			new Unit("Ally2", new Abilities[] { Abilities.LightHeal, Abilities.StrongHeal }, Alliances.Ally, 5),
+			new Unit("Foe1", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Foe, 5),
+			new Unit("Foe2", new Abilities[] { Abilities.LightHeal, Abilities.StrongHeal }, Alliances.Foe, 5)
 	};
 
 	public BattleStateManager(GameObject unitPrefab, UIFacade uiFacade)

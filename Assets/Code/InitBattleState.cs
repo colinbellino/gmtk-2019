@@ -12,10 +12,10 @@ public class InitBattleState : IBattleState
 
 	public void EnterState()
 	{
-		_manager.Units[0].Facade = SpawnUnit(_manager.Units[0], new Vector3(2f, 0f, 0f));
-		_manager.Units[1].Facade = SpawnUnit(_manager.Units[1], new Vector3(2f, 2f, 0f));
-		_manager.Units[2].Facade = SpawnUnit(_manager.Units[2], new Vector3(7f, 0f, 0f));
-		_manager.Units[3].Facade = SpawnUnit(_manager.Units[3], new Vector3(7f, 2f, 0f));
+		_manager.Units[0].Facade = SpawnUnit(_manager.Units[0], new Vector3(2f, 2f, 0f));
+		_manager.Units[1].Facade = SpawnUnit(_manager.Units[1], new Vector3(2f, 0f, 0f));
+		_manager.Units[2].Facade = SpawnUnit(_manager.Units[2], new Vector3(7f, 2f, 0f));
+		_manager.Units[3].Facade = SpawnUnit(_manager.Units[3], new Vector3(7f, 0f, 0f));
 
 		_manager.ChangeState(BattleStates.PlayerTurn);
 	}

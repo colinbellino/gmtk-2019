@@ -6,12 +6,14 @@ public class Unit
 	public Abilities[] Abilities;
 	public Alliances Alliance;
 	public UnitFacade Facade;
+	public Stat Health;
 
-	public Unit(string name, Abilities[] abilities, Alliances alliance)
+	public Unit(string name, Abilities[] abilities, Alliances alliance, int health)
 	{
 		Name = name;
 		Abilities = abilities;
 		Alliance = alliance;
+		Health = new Stat(health);
 	}
 }
 

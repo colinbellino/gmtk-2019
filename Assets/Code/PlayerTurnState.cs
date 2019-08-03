@@ -6,6 +6,7 @@ public class PlayerTurnState : TurnState, IBattleState
 	public PlayerTurnState(BattleStateManager manager)
 	{
 		_manager = manager;
+		_nextState = BattleStates.CPUTurn;
 	}
 
 	public void EnterState()
@@ -17,9 +18,12 @@ public class PlayerTurnState : TurnState, IBattleState
 		_endOfRoundTimestamp = Time.time + _roundDuration;
 	}
 
-	public override void Update()
+	public void Update()
 	{
-		base.Update();
+		if (Time.time >= _endOfRoundTimestamp)
+		{
+			EndRound();
+		}
 
 		UnitFacade initiator = null;
 		UnitFacade target = null;
@@ -45,6 +49,9 @@ public class PlayerTurnState : TurnState, IBattleState
 			}
 		}
 
+		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
+		_manager.UIFacade.UpdateRound(_turn.Round);
+
 		Plan(initiator, target, ability);
 	}
 
@@ -57,17 +64,7 @@ public abstract class TurnState
 	protected float _roundDuration = 1f;
 	protected Turn _turn;
 	protected float _endOfRoundTimestamp;
-
-	public virtual void Update()
-	{
-		if (Time.time >= _endOfRoundTimestamp)
-		{
-			EndRound();
-		}
-
-		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
-		_manager.UIFacade.UpdateRound(_turn.Round);
-	}
+	protected BattleStates _nextState;
 
 	protected void Plan(UnitFacade iniator, UnitFacade target, Abilities ability)
 	{
@@ -97,7 +94,7 @@ public abstract class TurnState
 
 		if (_turn.IsOver)
 		{
-			_manager.ChangeState(BattleStates.CPUTurn);
+			_manager.ChangeState(_nextState);
 		}
 	}
 

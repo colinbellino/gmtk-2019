@@ -28,7 +28,7 @@ public class PlayerTurnState : TurnState, IBattleState
 		if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
 		{
 			var unit = GetUnitUnderMouseCursor();
-			if (unit)
+			if (unit && unit.Unit.Alliance == Alliances.Ally)
 			{
 				initiator = unit;
 				var index = Input.GetMouseButtonDown(0) ? 0 : 1;

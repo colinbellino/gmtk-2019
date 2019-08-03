@@ -25,6 +25,7 @@ public enum Alliances
 
 public enum Abilities
 {
+	None,
 	LightPunch,
 	StrongPunch,
 	LightHeal,

@@ -20,16 +20,16 @@ public class Turn
 
 	public bool IsOver => Round.Current == 0;
 
-	public void SelectAbility(Unit initiator, int abilityIndex)
+	public void SelectAbility(UnitFacade initiator, Abilities ability)
 	{
-		_action = new BattleAction { Initiator = initiator.Facade, Ability = initiator.Abilities[abilityIndex] };
+		_action = new BattleAction { Initiator = initiator, Ability = ability };
 	}
 
-	public void SelectTarget(Unit target)
+	public void SelectTarget(UnitFacade target)
 	{
 		if (_action == null) { return; }
 
-		_action.Target = target.Facade;
+		_action.Target = target;
 	}
 
 	public void Act()
@@ -51,15 +51,14 @@ public class Turn
 		}
 	}
 
-	public BattleAction GetValidAction()
+	public bool IsValidAction()
 	{
-		if (_action == null || _action.Initiator == null || _action.Initiator == null)
+		if (_action == null || _action.Initiator == null || _action.Target == null)
 		{
-			// Debug.Log("Invalid action." + _action);
-			return null;
+			return false;
 		}
 
-		return _action;
+		return true;
 	}
 
 }

@@ -9,8 +9,12 @@ public class UnitFacade : MonoBehaviour
 	[SerializeField] private Material _allianceAllyMaterial;
 	[SerializeField] private Material _allianceFoeMaterial;
 
-	public void InitView(Unit unit)
+	public Unit Unit => _unit;
+	private Unit _unit;
+
+	public void Init(Unit unit)
 	{
+		_unit = unit;
 		SetNameText(unit.Name);
 		SetAllianceTexture(unit.Alliance);
 	}

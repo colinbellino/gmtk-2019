@@ -9,6 +9,7 @@ public class BattleStateManager
 	private BattleStates _currentState;
 	private IBattleState _currentStateHandler;
 
+	public Camera Camera;
 	public GameObject UnitPrefab;
 	public UIFacade UIFacade;
 	public Unit[] Units = new Unit[]
@@ -34,6 +35,7 @@ public class BattleStateManager
 
 	public void Init()
 	{
+		Camera = Camera.main;
 		ChangeState(BattleStates.Init);
 	}
 

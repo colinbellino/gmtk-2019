@@ -12,8 +12,6 @@ public class InitBattleState : IBattleState
 
 	public void EnterState()
 	{
-		// Debug.Log("Initializing battle.");
-
 		for (int i = 0; i < _manager.Units.Length; i++)
 		{
 			_manager.Units[i].GameObject = SpawnUnit(_manager.Units[i], i);
@@ -26,6 +24,7 @@ public class InitBattleState : IBattleState
 	{
 		var instance = GameObject.Instantiate(_manager.UnitPrefab);
 		instance.transform.position = new Vector3(2f * index, 0f, 0f);
+		instance.name = unit.Name;
 
 		var facade = instance.GetComponent<UnitFacade>();
 		if (facade == null)
@@ -33,7 +32,7 @@ public class InitBattleState : IBattleState
 			throw new UnityException("Missing UnitFacade on unit prefab.");
 		}
 
-		facade.InitView(unit);
+		facade.Init(unit);
 
 		return instance;
 	}

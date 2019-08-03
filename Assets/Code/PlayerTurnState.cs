@@ -33,26 +33,29 @@ public class PlayerTurnState : IBattleState
 		{
 			// TODO: Select unit
 			// TODO: Select target
-
-			if (Input.GetMouseButtonDown(0))
+			var unitFacade = GetUnitUnderMouseCursor();
+			if (unitFacade)
 			{
-				_turn.Act(_manager.Units[0], 0);
-			}
-			else if (Input.GetMouseButtonDown(1))
-			{
-				_turn.Act(_manager.Units[0], 1);
-			}
-
-			if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
-			{
-				_turn.Target(_manager.Units[1]);
-
-				var action = _turn.GetValidAction();
-				if (action != null)
+				if (Input.GetMouseButtonDown(0))
 				{
-					_turn.EndRound();
-					_endOfRoundTimestamp = Time.time + _roundDuration;
-					Debug.Log($"Player acted: {action.Initiator} -({action.Ability})-> {action.Target}");
+					_turn.Act(unitFacade.Unit, 0);
+				}
+				else if (Input.GetMouseButtonDown(1))
+				{
+					_turn.Act(unitFacade.Unit, 1);
+				}
+
+				if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+				{
+					_turn.Target(unitFacade.Unit);
+
+					var action = _turn.GetValidAction();
+					if (action != null)
+					{
+						_turn.EndRound();
+						_endOfRoundTimestamp = Time.time + _roundDuration;
+						Debug.Log($"Player acted: {action.Initiator.Name} ---({action.Ability})---> {action.Target.Name}");
+					}
 				}
 			}
 		}
@@ -64,6 +67,20 @@ public class PlayerTurnState : IBattleState
 
 		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
 		_manager.UIFacade.UpdateRound(_turn.Round);
+	}
+
+	private UnitFacade GetUnitUnderMouseCursor()
+	{
+		RaycastHit hit;
+		var ray = _manager.Camera.ScreenPointToRay(Input.mousePosition);
+
+		if (Physics.Raycast(ray, out hit))
+		{
+			Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.yellow);
+			return hit.collider.GetComponent<UnitFacade>();
+		}
+
+		return null;
 	}
 
 	public void ExitState() { }

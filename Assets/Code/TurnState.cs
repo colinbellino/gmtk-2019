@@ -10,17 +10,11 @@ public abstract class TurnState
 	protected BattleStates _nextState;
 	protected bool _acted;
 
-	protected void Plan(UnitFacade iniator, UnitFacade target, Abilities ability)
+	protected void Plan(UnitFacade target, Abilities ability)
 	{
-		if (iniator && ability != Abilities.None)
-		{
-			_turn.SelectAbility(iniator, ability);
-		}
-
-		if (target)
-		{
-			_turn.SelectTarget(target);
-		}
+		_turn.Action = new BattleAction();
+		_turn.Action.Target = target;
+		_turn.Action.Ability = ability;
 
 		// Act
 		if (_turn.IsValidAction())
@@ -36,10 +30,7 @@ public abstract class TurnState
 		_acted = false;
 		_endOfRoundTimestamp = Time.time + _roundDuration;
 
-		if (_turn.IsOver)
-		{
-			_manager.ChangeState(_nextState);
-		}
+		_manager.ChangeState(_nextState);
 	}
 
 	protected UnitFacade GetUnitUnderMouseCursor()

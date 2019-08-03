@@ -11,7 +11,7 @@ public class CPUTurnState : TurnState, IBattleState
 
 	public void EnterState()
 	{
-		_turn = new Turn(1);
+		_turn = new Turn();
 	}
 
 	public void Update()
@@ -26,13 +26,11 @@ public class CPUTurnState : TurnState, IBattleState
 		var allies = _manager.Units.Where(unit => unit.Alliance == Alliances.Ally).ToList();
 		var foes = _manager.Units.Where(unit => unit.Alliance == Alliances.Foe).ToList();
 
-		var initiator = foes[Random.Range(0, foes.Count)].Facade;
-		var ability = initiator.Unit.Abilities[Random.Range(0, 1)];
-
 		var randomTarget = allies[Random.Range(0, allies.Count)];
 		var target = randomTarget.Facade;
+		var ability = Random.Range(0, 1) == 0 ? Abilities.LightPunch : Abilities.StrongHeal;
 
-		Plan(initiator, target, ability);
+		Plan(target, ability);
 	}
 
 	public void ExitState() { }

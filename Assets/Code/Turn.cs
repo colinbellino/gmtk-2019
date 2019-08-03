@@ -40,7 +40,7 @@ public class Turn
 				_action.Target.Damage(1);
 				break;
 			case Abilities.StrongPunch:
-				_action.Target.Damage(1);
+				_action.Target.Damage(2);
 				break;
 			case Abilities.LightHeal:
 				_action.Target.Heal(1);

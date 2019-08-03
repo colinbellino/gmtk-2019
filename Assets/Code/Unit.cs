@@ -5,7 +5,7 @@ public class Unit
 	public string Name;
 	public string[] Abilities;
 	public Alliances Alliance;
-	public GameObject GameObject;
+	public UnitFacade Facade;
 
 	public Unit(string name, string[] abilities, Alliances alliance)
 	{

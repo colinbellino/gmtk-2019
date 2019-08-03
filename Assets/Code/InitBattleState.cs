@@ -14,16 +14,16 @@ public class InitBattleState : IBattleState
 	{
 		for (int i = 0; i < _manager.Units.Length; i++)
 		{
-			_manager.Units[i].GameObject = SpawnUnit(_manager.Units[i], i);
+			_manager.Units[i].Facade = SpawnUnit(_manager.Units[i], i);
 		}
 
 		_manager.ChangeState(BattleStates.PlayerTurn);
 	}
 
-	private GameObject SpawnUnit(Unit unit, int index)
+	private UnitFacade SpawnUnit(Unit unit, int index)
 	{
 		var instance = GameObject.Instantiate(_manager.UnitPrefab);
-		instance.transform.position = new Vector3(2f * index, 0f, 0f);
+		instance.transform.position = new Vector3(3f * index, 0f, 0f);
 		instance.name = unit.Name;
 
 		var facade = instance.GetComponent<UnitFacade>();
@@ -34,7 +34,7 @@ public class InitBattleState : IBattleState
 
 		facade.Init(unit);
 
-		return instance;
+		return facade;
 	}
 
 	public void Update() { }

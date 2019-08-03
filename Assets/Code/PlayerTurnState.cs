@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerTurnState : IBattleState
 {
@@ -15,58 +16,56 @@ public class PlayerTurnState : IBattleState
 
 	public void EnterState()
 	{
-		// Debug.Log("Starting player turn.");
-
 		_endOfRoundTimestamp = Time.time + _roundDuration;
 		_turn = new Turn(3);
 	}
 
 	public void Update()
 	{
+
 		if (Time.time >= _endOfRoundTimestamp)
 		{
-			_turn.EndRound();
-			_endOfRoundTimestamp = Time.time + _roundDuration;
-			// Debug.Log($"Round timed out, {_turn.Round.Current} actions remaining.");
+			EndRound();
+			return;
 		}
-		else
+
+		var activeUnit = GetUnitUnderMouseCursor();
+		if (activeUnit)
 		{
-			// TODO: Select unit
-			// TODO: Select target
-			var unitFacade = GetUnitUnderMouseCursor();
-			if (unitFacade)
+			if (Input.GetMouseButtonDown(0))
 			{
-				if (Input.GetMouseButtonDown(0))
-				{
-					_turn.Act(unitFacade.Unit, 0);
-				}
-				else if (Input.GetMouseButtonDown(1))
-				{
-					_turn.Act(unitFacade.Unit, 1);
-				}
+				_turn.Act(activeUnit.Unit, 0);
+			}
+			else if (Input.GetMouseButtonDown(1))
+			{
+				_turn.Act(activeUnit.Unit, 1);
+			}
+			if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+			{
+				_turn.Target(activeUnit.Unit);
 
-				if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+				var action = _turn.GetValidAction();
+				if (action != null)
 				{
-					_turn.Target(unitFacade.Unit);
-
-					var action = _turn.GetValidAction();
-					if (action != null)
-					{
-						_turn.EndRound();
-						_endOfRoundTimestamp = Time.time + _roundDuration;
-						Debug.Log($"Player acted: {action.Initiator.Name} ---({action.Ability})---> {action.Target.Name}");
-					}
+					Debug.Log($"Player acted: {action.Initiator.Name} ---({action.Ability})---> {action.Target.Name}");
+					EndRound();
 				}
 			}
 		}
+
+		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
+		_manager.UIFacade.UpdateRound(_turn.Round);
+	}
+
+	private void EndRound()
+	{
+		_turn.EndRound();
+		_endOfRoundTimestamp = Time.time + _roundDuration;
 
 		if (_turn.IsOver)
 		{
 			_manager.ChangeState(BattleStates.CPUTurn);
 		}
-
-		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
-		_manager.UIFacade.UpdateRound(_turn.Round);
 	}
 
 	private UnitFacade GetUnitUnderMouseCursor()

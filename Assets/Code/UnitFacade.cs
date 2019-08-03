@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class UnitFacade : MonoBehaviour
 {
-	[SerializeField] private Renderer _renderer;
+	[SerializeField] private SpriteRenderer _renderer;
 	[SerializeField] private TextMeshProUGUI _nameText;
-	[SerializeField] private Material _allianceAllyMaterial;
-	[SerializeField] private Material _allianceFoeMaterial;
+	[SerializeField] private Color _allianceAllyColor;
+	[SerializeField] private Color _allianceFoeColor;
+	[SerializeField] private LineRenderer _lineRenderer;
 
 	public Unit Unit => _unit;
 	private Unit _unit;
@@ -15,18 +16,24 @@ public class UnitFacade : MonoBehaviour
 	public void Init(Unit unit)
 	{
 		_unit = unit;
-		SetNameText(unit.Name);
-		SetAllianceTexture(unit.Alliance);
+		SetName(unit.Name);
+		SetAlliance(unit.Alliance);
 	}
 
-	private void SetNameText(string name)
+	public void DrawLineTo(Vector3 endPoint)
+	{
+		_lineRenderer.SetPosition(0, Vector3.zero);
+		_lineRenderer.SetPosition(1, endPoint);
+	}
+
+	private void SetName(string name)
 	{
 		_nameText.text = name;
 	}
 
-	private void SetAllianceTexture(Alliances alliance)
+	private void SetAlliance(Alliances alliance)
 	{
-		var material = alliance == Alliances.Ally ? _allianceAllyMaterial : _allianceFoeMaterial;
-		_renderer.material = material;
+		var color = alliance == Alliances.Ally ? _allianceAllyColor : _allianceFoeColor;
+		_renderer.color = color;
 	}
 }

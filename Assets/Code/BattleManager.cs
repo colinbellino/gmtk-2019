@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
@@ -15,8 +13,5 @@ public class BattleManager : MonoBehaviour
 		_stateManager.Init();
 	}
 
-	private void Update()
-	{
-		_stateManager.Tick();
-	}
+	private void Update() => _stateManager.Tick();
 }

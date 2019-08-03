@@ -20,16 +20,35 @@ public class Turn
 
 	public bool IsOver => Round.Current == 0;
 
-	public void Act(Unit initiator, int abilityIndex)
+	public void SelectAbility(Unit initiator, int abilityIndex)
 	{
-		_action = new BattleAction { Initiator = initiator, Ability = initiator.Abilities[abilityIndex] };
+		_action = new BattleAction { Initiator = initiator.Facade, Ability = initiator.Abilities[abilityIndex] };
 	}
 
-	public void Target(Unit target)
+	public void SelectTarget(Unit target)
 	{
 		if (_action == null) { return; }
 
-		_action.Target = target;
+		_action.Target = target.Facade;
+	}
+
+	public void Act()
+	{
+		switch (_action.Ability)
+		{
+			case Abilities.LightPunch:
+				_action.Target.CreateMessage("10", Color.white);
+				break;
+			case Abilities.StrongPunch:
+				_action.Target.CreateMessage("20", Color.white);
+				break;
+			case Abilities.LightHeal:
+				_action.Target.CreateMessage("10", Color.green);
+				break;
+			case Abilities.StrongHeal:
+				_action.Target.CreateMessage("20", Color.green);
+				break;
+		}
 	}
 
 	public BattleAction GetValidAction()
@@ -42,4 +61,5 @@ public class Turn
 
 		return _action;
 	}
+
 }

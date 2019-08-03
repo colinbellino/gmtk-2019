@@ -35,20 +35,21 @@ public class PlayerTurnState : IBattleState
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
-				_turn.Act(activeUnit.Unit, 0);
+				_turn.SelectAbility(activeUnit.Unit, 0);
 			}
 			else if (Input.GetMouseButtonDown(1))
 			{
-				_turn.Act(activeUnit.Unit, 1);
+				_turn.SelectAbility(activeUnit.Unit, 1);
 			}
 			if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
 			{
-				_turn.Target(activeUnit.Unit);
+				_turn.SelectTarget(activeUnit.Unit);
 
 				var action = _turn.GetValidAction();
 				if (action != null)
 				{
-					Debug.Log($"Player acted: {action.Initiator.Name} ---({action.Ability})---> {action.Target.Name}");
+					Debug.Log($"Player acted: {action.Initiator.Unit.Name} ---({action.Ability})---> {action.Target.Unit.Name}");
+					_turn.Act();
 					EndRound();
 				}
 			}

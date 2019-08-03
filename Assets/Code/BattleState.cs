@@ -7,12 +7,19 @@ public class BattleStateManager
 	private Dictionary<BattleStates, IBattleState> _states;
 	private BattleStates _currentState;
 	private IBattleState _currentStateHandler;
-	private int _currentActionPoints;
 
-	public Turn Turn;
-
-	public BattleStateManager()
+	public GameObject UnitPrefab;
+	public Unit[] Units = new Unit[]
 	{
+		new Unit("Ally1", new string[] { "Light Punch", "Strong Punch" }, Alliances.Ally),
+			new Unit("Ally2", new string[] { "Light Heal", "Strong Heal" }, Alliances.Ally),
+			new Unit("Foe1", new string[] { "Light Punch", "Strong Punch" }, Alliances.Foe),
+			new Unit("Foe2", new string[] { "Light Heal", "Strong Heal" }, Alliances.Foe)
+	};
+
+	public BattleStateManager(GameObject unitPrefab)
+	{
+		UnitPrefab = unitPrefab;
 		_states = new Dictionary<BattleStates, IBattleState>
 		{ //
 			{ BattleStates.Init, new InitBattleState(this) },
@@ -61,7 +68,29 @@ public class InitBattleState : IBattleState
 	public void EnterState()
 	{
 		Debug.Log("Initializing battle.");
+
+		for (int i = 0; i < _manager.Units.Length; i++)
+		{
+			_manager.Units[i].GameObject = SpawnUnit(_manager.Units[i], i);
+		}
+
 		_manager.ChangeState(BattleStates.PlayerTurn);
+	}
+
+	private GameObject SpawnUnit(Unit unit, int index)
+	{
+		var instance = GameObject.Instantiate(_manager.UnitPrefab);
+		instance.transform.position = new Vector3(2f * index, 0f, 0f);
+
+		var facade = instance.GetComponent<UnitFacade>();
+		if (facade == null)
+		{
+			throw new Exception("Missing UnitFacade on unit prefab.");
+		}
+
+		facade.InitView(unit);
+
+		return instance;
 	}
 
 	public void Update() { }
@@ -73,13 +102,7 @@ public class PlayerTurnState : IBattleState
 {
 	private BattleStateManager _manager;
 	private float _roundDuration = 10f;
-	private Unit[] _units = new Unit[]
-	{
-		new Unit("Ally1", new string[] { "Light Punch", "Strong Punch" }),
-			new Unit("Ally2", new string[] { "Light Heal", "Strong Heal" }),
-			new Unit("Foe1", new string[] { "Light Punch", "Strong Punch" }),
-			new Unit("Foe2", new string[] { "Light Heal", "Strong Heal" })
-	};
+	private Turn _turn;
 
 	private float _endOfRoundTimestamp;
 
@@ -93,7 +116,7 @@ public class PlayerTurnState : IBattleState
 		Debug.Log("Starting player turn.");
 
 		_endOfRoundTimestamp = Time.time + _roundDuration;
-		_manager.Turn = new Turn(3);
+		_turn = new Turn(3);
 	}
 
 	public void Update()
@@ -101,9 +124,9 @@ public class PlayerTurnState : IBattleState
 
 		if (Time.time >= _endOfRoundTimestamp)
 		{
-			_manager.Turn.EndRound();
+			_turn.EndRound();
 			_endOfRoundTimestamp = Time.time + _roundDuration;
-			Debug.Log($"Round timed out, {_manager.Turn.Round.Current} actions remaining.");
+			Debug.Log($"Round timed out, {_turn.Round.Current} actions remaining.");
 		}
 		else
 		{
@@ -112,28 +135,28 @@ public class PlayerTurnState : IBattleState
 
 			if (Input.GetMouseButtonDown(0))
 			{
-				_manager.Turn.Act(_units[0], 0);
+				_turn.Act(_manager.Units[0], 0);
 			}
 			else if (Input.GetMouseButtonDown(1))
 			{
-				_manager.Turn.Act(_units[0], 1);
+				_turn.Act(_manager.Units[0], 1);
 			}
 
 			if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
 			{
-				_manager.Turn.Target(_units[1]);
+				_turn.Target(_manager.Units[1]);
 
-				var action = _manager.Turn.GetValidAction();
+				var action = _turn.GetValidAction();
 				if (action != null)
 				{
-					_manager.Turn.EndRound();
+					_turn.EndRound();
 					_endOfRoundTimestamp = Time.time + _roundDuration;
 					Debug.Log($"Player acted: {action.Initiator} -({action.Ability})-> {action.Target}");
 				}
 			}
 		}
 
-		if (_manager.Turn.IsOver)
+		if (_turn.IsOver)
 		{
 			_manager.ChangeState(BattleStates.CPUTurn);
 		}

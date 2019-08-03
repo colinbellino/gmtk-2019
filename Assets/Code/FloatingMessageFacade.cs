@@ -11,4 +11,9 @@ public class FloatingMessageFacade : MonoBehaviour
 		_text.text = text;
 		_text.color = color;
 	}
+
+	public void Update()
+	{
+		transform.Translate(Vector3.up * Time.deltaTime, Space.World);
+	}
 }

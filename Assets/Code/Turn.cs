@@ -36,7 +36,7 @@ public class Turn
 	{
 		if (_action == null || _action.Initiator == null || _action.Initiator == null)
 		{
-			Debug.Log("Invalid action." + _action);
+			// Debug.Log("Invalid action." + _action);
 			return null;
 		}
 

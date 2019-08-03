@@ -15,6 +15,7 @@ public class Turn
 	public void EndRound()
 	{
 		Round.Current = Round.Current - 1;
+		_action = null;
 	}
 
 	public bool IsOver => Round.Current == 0;
@@ -35,7 +36,7 @@ public class Turn
 	{
 		if (_action == null || _action.Initiator == null || _action.Initiator == null)
 		{
-			Debug.Log("Invalid action");
+			Debug.Log("Invalid action." + _action);
 			return null;
 		}
 

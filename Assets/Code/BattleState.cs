@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleStateManager
 {
@@ -9,6 +10,7 @@ public class BattleStateManager
 	private IBattleState _currentStateHandler;
 
 	public GameObject UnitPrefab;
+	public UIFacade UIFacade;
 	public Unit[] Units = new Unit[]
 	{
 		new Unit("Ally1", new string[] { "Light Punch", "Strong Punch" }, Alliances.Ally),
@@ -17,9 +19,11 @@ public class BattleStateManager
 			new Unit("Foe2", new string[] { "Light Heal", "Strong Heal" }, Alliances.Foe)
 	};
 
-	public BattleStateManager(GameObject unitPrefab)
+	public BattleStateManager(GameObject unitPrefab, UIFacade uiFacade)
 	{
 		UnitPrefab = unitPrefab;
+		UIFacade = uiFacade;
+
 		_states = new Dictionary<BattleStates, IBattleState>
 		{ //
 			{ BattleStates.Init, new InitBattleState(this) },
@@ -101,7 +105,7 @@ public class InitBattleState : IBattleState
 public class PlayerTurnState : IBattleState
 {
 	private BattleStateManager _manager;
-	private float _roundDuration = 10f;
+	private float _roundDuration = 1f;
 	private Turn _turn;
 
 	private float _endOfRoundTimestamp;
@@ -121,7 +125,6 @@ public class PlayerTurnState : IBattleState
 
 	public void Update()
 	{
-
 		if (Time.time >= _endOfRoundTimestamp)
 		{
 			_turn.EndRound();
@@ -160,6 +163,9 @@ public class PlayerTurnState : IBattleState
 		{
 			_manager.ChangeState(BattleStates.CPUTurn);
 		}
+
+		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
+		_manager.UIFacade.UpdateRound(_turn.Round);
 	}
 
 	public void ExitState() { }

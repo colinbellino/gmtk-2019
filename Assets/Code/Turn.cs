@@ -49,6 +49,9 @@ public class Turn
 				_action.Target.Heal(2);
 				break;
 		}
+
+		var color = _action.Initiator.Unit.Alliance == Alliances.Ally ? "blue" : "red";
+		Debug.Log($"<color={color}>{_action.Initiator.Unit.Name} ---({_action.Ability})---> {_action.Target.Unit.Name}</color>");
 	}
 
 	public bool IsValidAction()

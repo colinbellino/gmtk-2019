@@ -17,7 +17,7 @@ public class BattleStateManager
 		new Unit("Ally1", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Ally, 5),
 		new Unit("Ally2", new Abilities[] { Abilities.LightHeal, Abilities.StrongHeal }, Alliances.Ally, 5),
 		new Unit("Foe1", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Foe, 5),
-		new Unit("Foe2", new Abilities[] { Abilities.LightHeal, Abilities.StrongHeal }, Alliances.Foe, 5)
+		new Unit("Foe2", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Foe, 5)
 	};
 
 	public BattleStateManager(GameObject unitPrefab, UIFacade uiFacade)

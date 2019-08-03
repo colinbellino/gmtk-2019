@@ -12,17 +12,22 @@ public class PlayerTurnState : TurnState, IBattleState
 	public void EnterState()
 	{
 		_turn = new Turn(1);
-		_manager.UIFacade.SetTimerVisibility(true);
-		_manager.UIFacade.SetRoundVisibility(true);
 
 		_endOfRoundTimestamp = Time.time + _roundDuration;
 	}
 
 	public void Update()
 	{
+		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
+
 		if (Time.time >= _endOfRoundTimestamp)
 		{
 			EndRound();
+		}
+
+		if (_acted)
+		{
+			return;
 		}
 
 		UnitFacade initiator = null;
@@ -49,66 +54,8 @@ public class PlayerTurnState : TurnState, IBattleState
 			}
 		}
 
-		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
-		_manager.UIFacade.UpdateRound(_turn.Round);
-
 		Plan(initiator, target, ability);
 	}
 
 	public void ExitState() { }
-}
-
-public abstract class TurnState
-{
-	protected BattleStateManager _manager;
-	protected float _roundDuration = 1f;
-	protected Turn _turn;
-	protected float _endOfRoundTimestamp;
-	protected BattleStates _nextState;
-
-	protected void Plan(UnitFacade iniator, UnitFacade target, Abilities ability)
-	{
-		if (iniator && ability != Abilities.None)
-		{
-			_turn.SelectAbility(iniator, ability);
-		}
-
-		if (target)
-		{
-			_turn.SelectTarget(target);
-		}
-
-		// Act
-		if (_turn.IsValidAction())
-		{
-			Debug.Log($"{_turn.Action.Initiator.Unit.Name} ---({_turn.Action.Ability})---> {_turn.Action.Target.Unit.Name}");
-			_turn.Act();
-			EndRound();
-		}
-	}
-
-	protected void EndRound()
-	{
-		_turn.EndRound();
-		_endOfRoundTimestamp = Time.time + _roundDuration;
-
-		if (_turn.IsOver)
-		{
-			_manager.ChangeState(_nextState);
-		}
-	}
-
-	protected UnitFacade GetUnitUnderMouseCursor()
-	{
-		RaycastHit hit;
-		var ray = _manager.Camera.ScreenPointToRay(Input.mousePosition);
-
-		if (Physics.Raycast(ray, out hit))
-		{
-			Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.yellow);
-			return hit.collider.GetComponent<UnitFacade>();
-		}
-
-		return null;
-	}
 }

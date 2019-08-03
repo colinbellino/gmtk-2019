@@ -12,27 +12,25 @@ public class CPUTurnState : TurnState, IBattleState
 	public void EnterState()
 	{
 		_turn = new Turn(1);
-		_manager.UIFacade.SetTimerVisibility(false);
-		_manager.UIFacade.SetRoundVisibility(false);
 	}
 
 	public void Update()
 	{
 		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
-		_manager.UIFacade.UpdateRound(_turn.Round);
 
-		// FIXME: Change initiator at random ?
-		UnitFacade initiator = _manager.Units[2].Facade;
-		UnitFacade target = null;
-		var ability = Abilities.None;
-
-		var index = new System.Random().Next(0, 1);
-		ability = initiator.Unit.Abilities[index];
+		if (Time.time >= _endOfRoundTimestamp)
+		{
+			EndRound();
+		}
 
 		var allies = _manager.Units.Where(unit => unit.Alliance == Alliances.Ally).ToList();
-		var randomIndex = new System.Random().Next(0, allies.Count);
-		var randomTarget = allies[0];
-		target = randomTarget.Facade;
+		var foes = _manager.Units.Where(unit => unit.Alliance == Alliances.Foe).ToList();
+
+		var initiator = foes[Random.Range(0, foes.Count)].Facade;
+		var ability = initiator.Unit.Abilities[Random.Range(0, 1)];
+
+		var randomTarget = allies[Random.Range(0, allies.Count)];
+		var target = randomTarget.Facade;
 
 		Plan(initiator, target, ability);
 	}

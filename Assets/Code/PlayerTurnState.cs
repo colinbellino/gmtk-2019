@@ -16,17 +16,18 @@ public class PlayerTurnState : IBattleState
 
 	public void EnterState()
 	{
-		_endOfRoundTimestamp = Time.time + _roundDuration;
 		_turn = new Turn(3);
+		_manager.UIFacade.SetTimerVisibility(true);
+		_manager.UIFacade.SetRoundVisibility(true);
+
+		_endOfRoundTimestamp = Time.time + _roundDuration;
 	}
 
 	public void Update()
 	{
-
 		if (Time.time >= _endOfRoundTimestamp)
 		{
 			EndRound();
-			return;
 		}
 
 		var activeUnit = GetUnitUnderMouseCursor();

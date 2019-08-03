@@ -14,7 +14,8 @@ public class CPUTurnState : IBattleState
 
 	public void EnterState()
 	{
-		// Debug.Log("Starting CPU turn");
+		_manager.UIFacade.SetTimerVisibility(false);
+		_manager.UIFacade.SetRoundVisibility(false);
 
 		_endOfTurnTimestamp = Time.time + _turnDuration;
 	}

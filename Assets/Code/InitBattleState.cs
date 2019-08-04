@@ -15,9 +15,10 @@ public class InitBattleState : IBattleState
 	{
 		_manager.Units = new List<UnitFacade>
 		{
-			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(2f, 2f, 0f)),
-			SpawnUnit(new Unit("Ally2", Alliances.Ally, 5), new Vector3(2f, 0f, 0f)),
-			SpawnUnit(new Unit("Foe1", Alliances.Foe, 5), new Vector3(7f, 2f, 0f)),
+			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(2f, -1f, 0f)),
+			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(2f, 1f, 0f)),
+			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(2f, 3f, 0f)),
+			SpawnUnit(new Unit("Foe1", Alliances.Foe, 3), new Vector3(7f, 2f, 0f)),
 			SpawnUnit(new Unit("Foe2", Alliances.Foe, 5), new Vector3(7f, 0f, 0f))
 		};
 
@@ -26,7 +27,7 @@ public class InitBattleState : IBattleState
 
 	private UnitFacade SpawnUnit(Unit unit, Vector2 position)
 	{
-		var instance = GameObject.Instantiate(_manager.UnitPrefab);
+		var instance = GameObject.Instantiate(Resources.Load<GameObject>(unit.Name));
 		instance.transform.position = position;
 		instance.name = unit.Name;
 

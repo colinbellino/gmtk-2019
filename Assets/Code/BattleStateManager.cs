@@ -11,16 +11,14 @@ public class BattleStateManager
 	private IBattleState _currentStateHandler;
 
 	public Camera Camera;
-	public GameObject UnitPrefab;
 	public UIFacade UIFacade;
 	public List<UnitFacade> Units = new List<UnitFacade>();
 
 	public List<UnitFacade> Allies => Units.Where(unit => unit.Data.Alliance == Alliances.Ally).ToList();
 	public List<UnitFacade> Foes => Units.Where(unit => unit.Data.Alliance == Alliances.Foe).ToList();
 
-	public BattleStateManager(GameObject unitPrefab, UIFacade uiFacade)
+	public BattleStateManager(UIFacade uiFacade)
 	{
-		UnitPrefab = unitPrefab;
 		UIFacade = uiFacade;
 
 		_states = new Dictionary<BattleStates, IBattleState>

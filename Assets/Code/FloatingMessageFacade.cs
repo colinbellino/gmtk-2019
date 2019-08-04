@@ -14,6 +14,6 @@ public class FloatingMessageFacade : MonoBehaviour
 
 	public void Update()
 	{
-		transform.Translate(Vector3.up * Time.deltaTime, Space.World);
+		transform.Translate(Vector3.up * Time.deltaTime * 1f, Space.World);
 	}
 }

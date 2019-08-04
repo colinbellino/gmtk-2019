@@ -54,8 +54,14 @@ public class UnitFacade : MonoBehaviour
 
 	public void Damage(int value)
 	{
-		_data.Health.Current = _data.Health.Current - value;
-		CreateMessage(value.ToString(), Color.white);
+		var color = value < 0 ? Color.green : Color.white;
+		var isCrit = UnityEngine.Random.Range(0, 100) < 10;
+		var multiplier = isCrit ? 2 : 1;
+		var suffix = isCrit ? "!" : "";
+		var modifiedValue = value * multiplier;
+
+		_data.Health.Current = _data.Health.Current - modifiedValue;
+		CreateMessage(Math.Abs(modifiedValue).ToString() + suffix, color);
 
 		if (_data.Health.Current <= 0)
 		{
@@ -65,8 +71,7 @@ public class UnitFacade : MonoBehaviour
 
 	public void Heal(int value)
 	{
-		_data.Health.Current = _data.Health.Current + value;
-		CreateMessage(value.ToString(), Color.green);
+		Damage(-value);
 	}
 
 	private IEnumerator RemoveMessage(FloatingMessageFacade message)

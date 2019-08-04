@@ -26,7 +26,7 @@ public class Turn
 				Action.Target.Damage(1);
 				break;
 			case Abilities.WenkPunch:
-				Action.Target.Damage(2);
+				Action.Target.Damage(1);
 				break;
 			case Abilities.LightHeal:
 				Action.Target.Heal(1);

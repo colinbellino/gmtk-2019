@@ -14,6 +14,7 @@ public class PlayerTurnState : TurnState, IBattleState
 		var unit = _manager.Allies[_manager.GetNextAllyIndex()];
 		_turn = new Turn(_manager, unit);
 		_manager.UIFacade.SetTimerAlliance(Alliances.Ally);
+		_manager.UIFacade.UpdateCurrentUnitIndicator(Alliances.Ally, _manager.CurrentAllyIndex);
 
 		_endOfRoundTimestamp = Time.time + _roundDuration;
 	}
@@ -24,6 +25,7 @@ public class PlayerTurnState : TurnState, IBattleState
 
 		if (Time.time >= _endOfRoundTimestamp)
 		{
+			_manager.CurrentAllyIndex = _manager.GetNextAllyIndex();
 			EndRound();
 		}
 

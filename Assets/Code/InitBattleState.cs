@@ -39,7 +39,7 @@ public class InitBattleState : IBattleState
 		return foes;
 	}
 
-	private Vector3 GetPosition(Alliances alliance, int index)
+	public static Vector3 GetPosition(Alliances alliance, int index)
 	{
 		var offset = alliance == Alliances.Ally ? 0f : 7f;
 		return new Vector3(2f * index + offset, -2.936f, 0f);

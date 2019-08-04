@@ -3,15 +3,12 @@ using UnityEngine;
 public class Turn
 {
 	public BattleAction Action;
-	public UnitFacade Unit => _unit;
 
 	private BattleStateManager _manager;
-	private UnitFacade _unit;
 
 	public Turn(BattleStateManager manager, UnitFacade unit)
 	{
 		_manager = manager;
-		_unit = unit;
 
 		Action = new BattleAction();
 	}
@@ -44,7 +41,7 @@ public class Turn
 		var clip = Resources.Load<AudioClip>($"Sounds/{Action.Ability.ToString()}");
 		Action.Target.PlayOneShot(clip);
 
-		var color = _unit.Data.Alliance == Alliances.Ally ? "blue" : "red";
+		var color = Action.Initiator.Data.Alliance == Alliances.Ally ? "blue" : "red";
 		Debug.Log($"<color={color}>---({Action.Ability})---> {Action.Target.Data.Name}</color>");
 	}
 }

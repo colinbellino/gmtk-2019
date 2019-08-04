@@ -17,8 +17,8 @@ public class BattleStateManager
 	public MonoBehaviour AsyncGenerator;
 	public Camera Camera;
 	public UIFacade UIFacade;
-	public int CurrentAllyIndex = -1;
-	public int CurrentFoeIndex = -1;
+	public int CurrentAllyIndex;
+	public int CurrentFoeIndex;
 	public List<UnitFacade> Allies = new List<UnitFacade>();
 	public List<UnitFacade> Foes = new List<UnitFacade>();
 
@@ -52,12 +52,12 @@ public class BattleStateManager
 
 	public int GetNextAllyIndex()
 	{
-		return CurrentAllyIndex = (CurrentAllyIndex + 1) % Allies.Count;
+		return (CurrentAllyIndex + 1) % Allies.Count;
 	}
 
 	public int GetNextFoeIndex()
 	{
-		return CurrentFoeIndex = (CurrentFoeIndex + 1) % Foes.Count;
+		return (CurrentFoeIndex + 1) % Foes.Count;
 	}
 
 	public void PlayOneShot(AudioClip audioClip)

@@ -8,6 +8,7 @@ public class UIFacade : MonoBehaviour
 	[SerializeField] private Image _timerImage;
 	[SerializeField] private Sprite _timerAllySprite;
 	[SerializeField] private Sprite _timerFoeSprite;
+	[SerializeField] private Transform _currentUnitIndicator;
 
 	public void UpdateTimer(float value)
 	{
@@ -23,5 +24,10 @@ public class UIFacade : MonoBehaviour
 
 		_timerImage.sprite = alliance == Alliances.Ally ? _timerAllySprite : _timerFoeSprite;
 		_timerImage.fillClockwise = alliance == Alliances.Foe;
+	}
+
+	public void UpdateCurrentUnitIndicator(Alliances alliance, int index)
+	{
+		_currentUnitIndicator.position = InitBattleState.GetPosition(alliance, index);
 	}
 }

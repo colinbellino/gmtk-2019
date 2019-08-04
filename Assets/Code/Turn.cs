@@ -25,7 +25,7 @@ public class Turn
 			case Abilities.LightPunch:
 				Action.Target.Damage(1);
 				break;
-			case Abilities.StrongPunch:
+			case Abilities.WenkPunch:
 				Action.Target.Damage(2);
 				break;
 			case Abilities.LightHeal:
@@ -39,7 +39,7 @@ public class Turn
 		Action.Initiator.Wiggle();
 
 		var clip = Resources.Load<AudioClip>($"Sounds/{Action.Ability.ToString()}");
-		Action.Target.PlayOneShot(clip);
+		_manager.PlayOneShot(clip);
 
 		var color = Action.Initiator.Data.Alliance == Alliances.Ally ? "blue" : "red";
 		Debug.Log($"<color={color}>---({Action.Ability})---> {Action.Target.Data.Name}</color>");

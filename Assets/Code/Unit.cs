@@ -42,7 +42,7 @@ public enum Abilities
 {
 	None,
 	LightPunch,
-	StrongPunch,
+	WenkPunch,
 	LightHeal,
 	StrongHeal
 }

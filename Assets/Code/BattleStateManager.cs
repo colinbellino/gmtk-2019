@@ -68,7 +68,16 @@ public class BattleStateManager
 	private async void OnUnitDied(object sender, object args)
 	{
 		var unit = (UnitFacade) args;
-		Allies.Remove(unit);
+		if (unit.Data.Alliance == Alliances.Ally)
+		{
+			Allies.Remove(unit);
+			CurrentAllyIndex = 0;
+		}
+		else
+		{
+			Foes.Remove(unit);
+			CurrentFoeIndex = 0;
+		}
 		GameObject.Destroy(unit.gameObject);
 
 		var clip = Resources.Load<AudioClip>($"Sounds/Death-3");

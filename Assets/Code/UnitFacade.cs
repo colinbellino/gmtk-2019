@@ -45,6 +45,10 @@ public class UnitFacade : MonoBehaviour
 
 	public void Wiggle()
 	{
+		if (_animator == null)
+		{
+			return;
+		}
 		_animator.Play("Wiggle");
 	}
 

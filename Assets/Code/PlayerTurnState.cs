@@ -41,7 +41,7 @@ public class PlayerTurnState : TurnState, IBattleState
 			{
 				var target = unit;
 				var initiator = _manager.Allies[_manager.CurrentAllyIndex];
-				var ability = Input.GetMouseButtonUp(0) ? Abilities.LightPunch : Abilities.StrongHeal;
+				var ability = Input.GetMouseButtonUp(0) ? Abilities.WenkPunch : Abilities.StrongHeal;
 				Plan(initiator, target, ability);
 				Act();
 			}

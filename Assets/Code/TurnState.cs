@@ -10,20 +10,18 @@ public abstract class TurnState
 	protected BattleStates _nextState;
 	protected bool _acted;
 
-	protected void Plan(UnitFacade target, Abilities ability)
+	protected void Plan(UnitFacade initiator, UnitFacade target, Abilities ability)
 	{
 		_turn.Action = new BattleAction();
+		_turn.Action.Initiator = initiator;
 		_turn.Action.Target = target;
 		_turn.Action.Ability = ability;
 	}
 
 	protected void Act()
 	{
-		if (_turn.IsValidAction())
-		{
-			_turn.Act();
-			_acted = true;
-		}
+		_turn.Act();
+		_acted = true;
 	}
 
 	protected void EndRound()

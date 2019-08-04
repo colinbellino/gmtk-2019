@@ -14,26 +14,29 @@ public class InitBattleState : IBattleState
 
 	public void EnterState()
 	{
-		_manager.Units = new List<UnitFacade>
+		_manager.Allies = new List<UnitFacade>
 		{
 			SpawnUnit(new Unit("Ally1", Alliances.Ally), 0),
 			SpawnUnit(new Unit("Ally1", Alliances.Ally), 1)
 		};
-		AddRandomFoes();
+		_manager.Foes = GenerateRandomFoes();
 
-		_manager.ChangeState(BattleStates.PlayerTurn);
+		_manager.ChangeState(BattleStates.CPUTurn);
 	}
 
-	private void AddRandomFoes()
+	private List<UnitFacade> GenerateRandomFoes()
 	{
+		var foes = new List<UnitFacade>();
 		var randomCount = UnityEngine.Random.Range(1, 3);
 
 		for (int i = 0; i <= randomCount; i++)
 		{
 			var randomEnemy = UnityEngine.Random.Range(1, 3);
 			var unit = SpawnUnit(new Unit($"Foe{randomEnemy}", Alliances.Foe), i);
-			_manager.Units.Add(unit);
+			foes.Add(unit);
 		}
+
+		return foes;
 	}
 
 	private Vector3 GetPosition(Alliances alliance, int index)

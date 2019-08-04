@@ -17,18 +17,18 @@ public class CPUTurnState : TurnState, IBattleState
 
 	public IEnumerator Sequence()
 	{
-		_turn = new Turn(_manager, Alliances.Foe);
+		var unit = _manager.Foes[_manager.GetNextFoeIndex()];
+		_turn = new Turn(_manager, unit);
 		_manager.UIFacade.SetTimerAlliance(Alliances.Foe);
 
 		_endOfRoundTimestamp = Time.time + _roundDuration;
-		var allies = _manager.Allies;
-		var foes = _manager.Foes;
 
-		var randomTarget = allies[Random.Range(0, allies.Count)];
+		var initiator = _manager.Foes[_manager.CurrentFoeIndex];
+		var randomTarget = _manager.Allies[Random.Range(0, _manager.Allies.Count)];
 		var target = randomTarget;
 		var ability = Random.Range(0, 1) == 0 ? Abilities.LightPunch : Abilities.StrongHeal;
 
-		Plan(target, ability);
+		Plan(initiator, target, ability);
 
 		yield return new WaitForSeconds(_roundDuration / 2);
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1990459717329718737}
   - component: {fileID: 4525705586475508117}
   - component: {fileID: 1081891476014757143}
+  - component: {fileID: 5679172517291627326}
   m_Layer: 0
   m_Name: BaseUnit
   m_TagString: Untagged
@@ -47,7 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db09c89f7af4e543b6ba232c919ceda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: 3
   _renderer: {fileID: 5554849540158970688}
+  _animator: {fileID: 5679172517291627326}
   _floatingMessageContainer: {fileID: 4893940397569906959}
   _floatingMessagePrefab: {fileID: 3348486251737577411, guid: a24fefab178447c4cb92ea07117b209c,
     type: 3}
@@ -162,6 +165,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5679172517291627326
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895483420467232695}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3f93e0f92287c5740bddf09f8750d409, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1427206500528026450
 GameObject:
   m_ObjectHideFlags: 0

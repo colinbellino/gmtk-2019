@@ -11,7 +11,8 @@ public class PlayerTurnState : TurnState, IBattleState
 
 	public void EnterState()
 	{
-		_turn = new Turn(_manager, Alliances.Ally);
+		var unit = _manager.Allies[_manager.GetNextAllyIndex()];
+		_turn = new Turn(_manager, unit);
 		_manager.UIFacade.SetTimerAlliance(Alliances.Ally);
 
 		_endOfRoundTimestamp = Time.time + _roundDuration;
@@ -37,8 +38,9 @@ public class PlayerTurnState : TurnState, IBattleState
 			if (unit)
 			{
 				var target = unit;
+				var initiator = _manager.Allies[_manager.CurrentAllyIndex];
 				var ability = Input.GetMouseButtonUp(0) ? Abilities.LightPunch : Abilities.StrongHeal;
-				Plan(target, ability);
+				Plan(initiator, target, ability);
 				Act();
 			}
 		}

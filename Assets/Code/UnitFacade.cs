@@ -12,6 +12,7 @@ public class UnitFacade : MonoBehaviour
 	[SerializeField] private int _health = 3;
 
 	[SerializeField] private SpriteRenderer _renderer;
+	[SerializeField] private Animator _animator;
 	[SerializeField] private Transform _floatingMessageContainer;
 	[SerializeField] private FloatingMessageFacade _floatingMessagePrefab;
 	[SerializeField] private Slider _healthSlider;
@@ -40,6 +41,11 @@ public class UnitFacade : MonoBehaviour
 
 		_messages.Add(message);
 		StartCoroutine(RemoveMessage(message));
+	}
+
+	public void Wiggle()
+	{
+		_animator.Play("Wiggle");
 	}
 
 	public void Damage(int value)

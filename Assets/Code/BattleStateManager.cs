@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class BattleStateManager
 {
 	private Dictionary<BattleStates, IBattleState> _states;
+
 	private BattleStates _currentState;
 	private IBattleState _currentStateHandler;
 	private AudioSource _audioSource;
@@ -16,10 +17,10 @@ public class BattleStateManager
 	public MonoBehaviour AsyncGenerator;
 	public Camera Camera;
 	public UIFacade UIFacade;
-	public List<UnitFacade> Units = new List<UnitFacade>();
-
-	public List<UnitFacade> Allies => Units.Where(unit => unit.Data.Alliance == Alliances.Ally).ToList();
-	public List<UnitFacade> Foes => Units.Where(unit => unit.Data.Alliance == Alliances.Foe).ToList();
+	public int CurrentAllyIndex = -1;
+	public int CurrentFoeIndex = -1;
+	public List<UnitFacade> Allies = new List<UnitFacade>();
+	public List<UnitFacade> Foes = new List<UnitFacade>();
 
 	public BattleStateManager(MonoBehaviour asyncGenerator, UIFacade uiFacade, AudioSource audioSource)
 	{
@@ -49,6 +50,16 @@ public class BattleStateManager
 		this.RemoveObserver(OnUnitDied, UnitFacade.DiedNotification);
 	}
 
+	public int GetNextAllyIndex()
+	{
+		return CurrentAllyIndex = (CurrentAllyIndex + 1) % Allies.Count;
+	}
+
+	public int GetNextFoeIndex()
+	{
+		return CurrentFoeIndex = (CurrentFoeIndex + 1) % Foes.Count;
+	}
+
 	public void PlayOneShot(AudioClip audioClip)
 	{
 		_audioSource.PlayOneShot(audioClip);
@@ -57,7 +68,7 @@ public class BattleStateManager
 	private async void OnUnitDied(object sender, object args)
 	{
 		var unit = (UnitFacade) args;
-		Units.Remove(unit);
+		Allies.Remove(unit);
 		GameObject.Destroy(unit.gameObject);
 
 		var clip = Resources.Load<AudioClip>($"Sounds/Death-3");

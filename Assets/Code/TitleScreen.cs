@@ -21,6 +21,11 @@ public class TitleScreen : MonoBehaviour
 		Debug.Log("OnHelp");
 	}
 
+	public void Twitter()
+	{
+		Application.OpenURL("https://twitter.com/colinbellino");
+	}
+
 	public void OnExit()
 	{
 #if UNITY_EDITOR

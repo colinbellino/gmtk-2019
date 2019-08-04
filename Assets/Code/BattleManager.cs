@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -13,7 +14,17 @@ public class BattleManager : MonoBehaviour
 		_stateManager.Init();
 	}
 
-	private void Update() => _stateManager.Tick();
+	private void Update()
+	{
+#if UNITY_EDITOR
+		if (Input.GetKey(KeyCode.Return))
+		{
+			SceneManager.LoadScene("Battle");
+		}
+#endif
+
+		_stateManager.Tick();
+	}
 
 	private void OnDestroy()
 	{

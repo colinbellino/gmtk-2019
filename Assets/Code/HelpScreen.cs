@@ -10,7 +10,7 @@ public class HelpScreen : MonoBehaviour
 			SceneManager.LoadScene("Battle");
 		}
 
-		if (Input.GetKey("escape"))
+		if (Input.GetKey(KeyCode.Escape))
 		{
 			SceneManager.LoadScene("Title");
 		}

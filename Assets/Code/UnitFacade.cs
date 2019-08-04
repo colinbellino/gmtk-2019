@@ -9,6 +9,8 @@ public class UnitFacade : MonoBehaviour
 {
 	public const string DiedNotification = "Unit.Died";
 
+	[SerializeField] private int _health = 3;
+
 	[SerializeField] private SpriteRenderer _renderer;
 	[SerializeField] private Transform _floatingMessageContainer;
 	[SerializeField] private FloatingMessageFacade _floatingMessagePrefab;
@@ -22,6 +24,7 @@ public class UnitFacade : MonoBehaviour
 	public void Init(Unit unit)
 	{
 		_data = unit;
+		_data.SetHealth(_health);
 	}
 
 	private void Update()

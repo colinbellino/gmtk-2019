@@ -10,7 +10,7 @@ public class WinScreen : MonoBehaviour
 			SceneManager.LoadScene("Battle");
 		}
 
-		if (Input.GetKey("escape"))
+		if (Input.GetKey(KeyCode.Escape))
 		{
 			SceneManager.LoadScene("Battle");
 		}

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Unit
@@ -13,11 +14,21 @@ public class Unit
 
 	private Stat _health;
 
-	public Unit(string name, Alliances alliance, int baseHealth)
+	public Unit(string name, Alliances alliance)
 	{
 		Name = name;
 		Alliance = alliance;
+		_health = new Stat();
+	}
+
+	public void SetHealth(int baseHealth)
+	{
 		_health = new Stat(baseHealth);
+	}
+
+	internal void SetHealth(object health)
+	{
+		throw new NotImplementedException();
 	}
 }
 

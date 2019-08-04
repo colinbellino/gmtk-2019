@@ -10,7 +10,7 @@ public class LoseScreen : MonoBehaviour
 			SceneManager.LoadScene("Title");
 		}
 
-		if (Input.GetKey("escape"))
+		if (Input.GetKey(KeyCode.Escape))
 		{
 			SceneManager.LoadScene("Title");
 		}

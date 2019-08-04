@@ -5,7 +5,7 @@ public class TitleScreen : MonoBehaviour
 {
 	private void Update()
 	{
-		if (Input.GetKey("escape"))
+		if (Input.GetKey(KeyCode.Escape))
 		{
 			OnExit();
 		}

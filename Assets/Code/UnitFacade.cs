@@ -10,8 +10,8 @@ public class UnitFacade : MonoBehaviour
 	public const string DiedNotification = "Unit.Died";
 
 	[SerializeField] private SpriteRenderer _renderer;
-	[SerializeField] private Color _allianceAllyColor;
-	[SerializeField] private Color _allianceFoeColor;
+	[SerializeField] private Sprite _allianceAllySprite;
+	[SerializeField] private Sprite _allianceFoeSprite;
 	[SerializeField] private LineRenderer _lineRenderer;
 
 	[SerializeField] private TextMeshProUGUI _nameText;
@@ -83,8 +83,8 @@ public class UnitFacade : MonoBehaviour
 
 	private void SetAlliance(Alliances alliance)
 	{
-		var color = alliance == Alliances.Ally ? _allianceAllyColor : _allianceFoeColor;
-		_renderer.color = color;
+		var sprite = alliance == Alliances.Ally ? _allianceAllySprite : _allianceFoeSprite;
+		_renderer.sprite = sprite;
 	}
 
 	public void OnDeath()

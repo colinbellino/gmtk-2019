@@ -48,8 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 5554849540158970688}
-  _allianceAllyColor: {r: 0, g: 0.23331654, b: 0.8113208, a: 1}
-  _allianceFoeColor: {r: 1, g: 0, b: 0, a: 1}
+  _allianceAllySprite: {fileID: -1064417403683256232, guid: 55c06a884bef06b4d8600a33ef697344,
+    type: 3}
+  _allianceFoeSprite: {fileID: -6029379403722380413, guid: 5d9523a1145411a4e8060b53c300a226,
+    type: 3}
   _lineRenderer: {fileID: 7762563118657523359}
   _nameText: {fileID: 3019404131305883304}
   _floatingMessageContainer: {fileID: 4893940397569906959}
@@ -867,7 +869,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_Sprite: {fileID: -125772498526056057, guid: 9cde102fb8b215749bff7c01d5cfaefb,
     type: 3}
-  m_Color: {r: 0.28326613, g: 0.6981132, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -29,7 +29,7 @@ public class CPUTurnState : TurnState, IBattleState
 		var ability = Random.Range(0, 1) == 0 ? Abilities.LightPunch : Abilities.StrongHeal;
 
 		Plan(initiator, target, ability);
-		_manager.UIFacade.UpdateCurrentUnitIndicator(Alliances.Foe, _manager.CurrentFoeIndex);
+		_manager.UIFacade.UpdateCurrentUnitIndicator(unit);
 
 		yield return new WaitForSeconds(_roundDuration / 2);
 

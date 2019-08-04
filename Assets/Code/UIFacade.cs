@@ -26,8 +26,8 @@ public class UIFacade : MonoBehaviour
 		_timerImage.fillClockwise = alliance == Alliances.Foe;
 	}
 
-	public void UpdateCurrentUnitIndicator(Alliances alliance, int index)
+	public void UpdateCurrentUnitIndicator(UnitFacade unit)
 	{
-		_currentUnitIndicator.position = InitBattleState.GetPosition(alliance, index);
+		_currentUnitIndicator.position = unit.transform.position;
 	}
 }

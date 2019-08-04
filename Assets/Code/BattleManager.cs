@@ -14,4 +14,9 @@ public class BattleManager : MonoBehaviour
 	}
 
 	private void Update() => _stateManager.Tick();
+
+	private void OnDestroy()
+	{
+		_stateManager.OnDestroy();
+	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BattleStateManager
@@ -29,9 +30,20 @@ public class BattleStateManager
 			{ BattleStates.PlayerTurn, new PlayerTurnState(this) },
 			{ BattleStates.CPUTurn, new CPUTurnState(this) }
 		};
+	}
 
-		// TODO: Clean this up on destroy
+	public void Init()
+	{
+		Camera = Camera.main;
+
 		this.AddObserver(OnUnitDied, UnitFacade.DiedNotification);
+
+		ChangeState(BattleStates.Init);
+	}
+
+	public void OnDestroy()
+	{
+		this.RemoveObserver(OnUnitDied, UnitFacade.DiedNotification);
 	}
 
 	public void PlayOneShot(AudioClip audioClip)
@@ -50,18 +62,12 @@ public class BattleStateManager
 
 		if (Allies.Count == 0)
 		{
-			Debug.LogError("Lose condition.");
+			SceneManager.LoadScene("Lose");
 		}
 		else if (Foes.Count == 0)
 		{
-			Debug.LogWarning("Win condition.");
+			SceneManager.LoadScene("Win");
 		}
-	}
-
-	public void Init()
-	{
-		Camera = Camera.main;
-		ChangeState(BattleStates.Init);
 	}
 
 	public void Tick() => _currentStateHandler.Update();

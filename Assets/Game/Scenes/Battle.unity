@@ -177,8 +177,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: -3531757898420728607, guid: a7ad0f066501d064388d0e152956d9dc,
-    type: 3}
+  m_Sprite: {fileID: 840316196008112781, guid: ad6de7dfb4de0d24b843c0af5f4b14f6, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -440,6 +439,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timerContainer: {fileID: 1190476748}
   _timerImage: {fileID: 29454257}
+  _timerAllySprite: {fileID: 5549674902079489176, guid: a7ad0f066501d064388d0e152956d9dc,
+    type: 3}
+  _timerFoeSprite: {fileID: 840316196008112781, guid: ad6de7dfb4de0d24b843c0af5f4b14f6,
+    type: 3}
   _roundText: {fileID: 1648421926}
 --- !u!1 &1055852463
 GameObject:

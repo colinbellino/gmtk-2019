@@ -6,6 +6,8 @@ public class UIFacade : MonoBehaviour
 {
 	[SerializeField] private GameObject _timerContainer;
 	[SerializeField] private Image _timerImage;
+	[SerializeField] private Sprite _timerAllySprite;
+	[SerializeField] private Sprite _timerFoeSprite;
 	[SerializeField] private TextMeshProUGUI _roundText;
 
 	public void UpdateTimer(float value)
@@ -18,13 +20,8 @@ public class UIFacade : MonoBehaviour
 		_roundText.text = $"Round: {round.Current}/{round.Max}";
 	}
 
-	public void SetTimerVisibility(bool value)
+	public void SetTimerAlliance(Alliances alliance)
 	{
-		_timerContainer.SetActive(value);
-	}
-
-	public void SetRoundVisibility(bool value)
-	{
-		_roundText.enabled = value;
+		_timerImage.sprite = alliance == Alliances.Ally ? _timerAllySprite : _timerFoeSprite;
 	}
 }

@@ -12,6 +12,9 @@ public class CPUTurnState : TurnState, IBattleState
 	public void EnterState()
 	{
 		_turn = new Turn();
+		_manager.UIFacade.SetTimerAlliance(Alliances.Foe);
+
+		_endOfRoundTimestamp = Time.time + _roundDuration;
 	}
 
 	public void Update()
@@ -21,6 +24,11 @@ public class CPUTurnState : TurnState, IBattleState
 		if (Time.time >= _endOfRoundTimestamp)
 		{
 			EndRound();
+		}
+
+		if (_acted)
+		{
+			return;
 		}
 
 		var allies = _manager.Units.Where(unit => unit.Alliance == Alliances.Ally).ToList();

@@ -15,11 +15,11 @@ public class InitBattleState : IBattleState
 	{
 		_manager.Units = new List<UnitFacade>
 		{
-			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(2f, -1f, 0f)),
-			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(2f, 1f, 0f)),
-			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(2f, 3f, 0f)),
-			SpawnUnit(new Unit("Foe1", Alliances.Foe, 3), new Vector3(7f, 2f, 0f)),
-			SpawnUnit(new Unit("Foe2", Alliances.Foe, 5), new Vector3(7f, 0f, 0f))
+			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(0f, -2.436f, 0f)),
+			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(2f, -2.436f, 0f)),
+			// SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(3f, -2.436f, 0f)),
+			SpawnUnit(new Unit("Foe1", Alliances.Foe, 3), new Vector3(7f, -2.436f, 0f)),
+			SpawnUnit(new Unit("Foe2", Alliances.Foe, 5), new Vector3(9f, -2.436f, 0f))
 		};
 
 		_manager.ChangeState(BattleStates.PlayerTurn);

@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour
 {
-	// [SerializeField] private UIFacade _uiFacade;
-
 	private void Update()
 	{
 		if (Input.GetKey("escape"))
@@ -15,7 +13,7 @@ public class TitleScreen : MonoBehaviour
 
 	public void OnStart()
 	{
-		SceneManager.LoadScene("Battle");
+		SceneManager.LoadScene("Help");
 	}
 
 	public void OnHelp()

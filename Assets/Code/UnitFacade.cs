@@ -13,6 +13,7 @@ public class UnitFacade : MonoBehaviour
 	[SerializeField] private Transform _floatingMessageContainer;
 	[SerializeField] private FloatingMessageFacade _floatingMessagePrefab;
 	[SerializeField] private Slider _healthSlider;
+	[SerializeField] private AudioSource _audioSource;
 
 	public Unit Data => _data;
 	private Unit _data;
@@ -67,6 +68,12 @@ public class UnitFacade : MonoBehaviour
 	{
 		var color = Data.Alliance == Alliances.Ally ? "blue" : "red";
 		Debug.Log($"<color={color}>{Data.Name} died.</color>");
+
 		this.PostNotification(DiedNotification, this);
+	}
+
+	public void PlayOneShot(AudioClip audioClip)
+	{
+		_audioSource.PlayOneShot(audioClip);
 	}
 }

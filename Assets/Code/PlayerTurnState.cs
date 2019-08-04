@@ -11,7 +11,7 @@ public class PlayerTurnState : TurnState, IBattleState
 
 	public void EnterState()
 	{
-		_turn = new Turn(Alliances.Ally);
+		_turn = new Turn(_manager, Alliances.Ally);
 		_manager.UIFacade.SetTimerAlliance(Alliances.Ally);
 
 		_endOfRoundTimestamp = Time.time + _roundDuration;

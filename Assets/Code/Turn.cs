@@ -3,12 +3,16 @@ using UnityEngine;
 public class Turn
 {
 	public BattleAction Action;
+
+	private BattleStateManager _manager;
 	private Alliances _alliance;
 
-	public Turn(Alliances alliance)
+	public Turn(BattleStateManager manager, Alliances alliance)
 	{
-		Action = new BattleAction();
+		_manager = manager;
 		_alliance = alliance;
+
+		Action = new BattleAction();
 	}
 
 	public void EndRound()
@@ -33,6 +37,9 @@ public class Turn
 				Action.Target.Heal(2);
 				break;
 		}
+
+		var clip = Resources.Load<AudioClip>($"Sounds/{Action.Ability.ToString()}");
+		Action.Target.PlayOneShot(clip);
 
 		var color = _alliance == Alliances.Ally ? "blue" : "red";
 		Debug.Log($"<color={color}>---({Action.Ability})---> {Action.Target.Data.Name}</color>");

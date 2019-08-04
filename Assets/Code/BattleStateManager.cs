@@ -9,6 +9,7 @@ public class BattleStateManager
 	private Dictionary<BattleStates, IBattleState> _states;
 	private BattleStates _currentState;
 	private IBattleState _currentStateHandler;
+	private AudioSource _audioSource;
 
 	public Camera Camera;
 	public UIFacade UIFacade;
@@ -17,9 +18,10 @@ public class BattleStateManager
 	public List<UnitFacade> Allies => Units.Where(unit => unit.Data.Alliance == Alliances.Ally).ToList();
 	public List<UnitFacade> Foes => Units.Where(unit => unit.Data.Alliance == Alliances.Foe).ToList();
 
-	public BattleStateManager(UIFacade uiFacade)
+	public BattleStateManager(UIFacade uiFacade, AudioSource audioSource)
 	{
 		UIFacade = uiFacade;
+		_audioSource = audioSource;
 
 		_states = new Dictionary<BattleStates, IBattleState>
 		{ //
@@ -32,11 +34,19 @@ public class BattleStateManager
 		this.AddObserver(OnUnitDied, UnitFacade.DiedNotification);
 	}
 
+	public void PlayOneShot(AudioClip audioClip)
+	{
+		_audioSource.PlayOneShot(audioClip);
+	}
+
 	private void OnUnitDied(object sender, object args)
 	{
 		var unit = (UnitFacade) args;
 		Units.Remove(unit);
 		GameObject.Destroy(unit.gameObject);
+
+		var clip = Resources.Load<AudioClip>($"Sounds/Death-3");
+		PlayOneShot(clip);
 
 		if (Allies.Count == 0)
 		{

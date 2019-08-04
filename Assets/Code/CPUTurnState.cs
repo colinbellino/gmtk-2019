@@ -10,7 +10,7 @@ public class CPUTurnState : TurnState, IBattleState
 
 	public void EnterState()
 	{
-		_turn = new Turn(Alliances.Foe);
+		_turn = new Turn(_manager, Alliances.Foe);
 		_manager.UIFacade.SetTimerAlliance(Alliances.Foe);
 
 		_endOfRoundTimestamp = Time.time + _roundDuration;

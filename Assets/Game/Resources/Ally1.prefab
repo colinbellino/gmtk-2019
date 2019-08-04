@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 895483420467232695, guid: 3d05544c5b4267c42a7202c5ff75dbd7,
         type: 3}
       propertyPath: m_Name
-      value: BaseUnit
+      value: Ally1
       objectReference: {fileID: 0}
     - target: {fileID: 895483420467232694, guid: 3d05544c5b4267c42a7202c5ff75dbd7,
         type: 3}
@@ -66,6 +66,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990459717329718737, guid: 3d05544c5b4267c42a7202c5ff75dbd7,
+        type: 3}
+      propertyPath: _health
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5554849540158970688, guid: 3d05544c5b4267c42a7202c5ff75dbd7,
         type: 3}

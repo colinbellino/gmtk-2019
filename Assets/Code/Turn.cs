@@ -3,10 +3,12 @@ using UnityEngine;
 public class Turn
 {
 	public BattleAction Action;
+	private Alliances _alliance;
 
-	public Turn()
+	public Turn(Alliances alliance)
 	{
 		Action = new BattleAction();
+		_alliance = alliance;
 	}
 
 	public void EndRound()
@@ -32,8 +34,8 @@ public class Turn
 				break;
 		}
 
-		var color = Action.Target.Unit.Alliance == Alliances.Foe ? "blue" : "red";
-		Debug.Log($"<color={color}>---({Action.Ability})---> {Action.Target.Unit.Name}</color>");
+		var color = _alliance == Alliances.Ally ? "blue" : "red";
+		Debug.Log($"<color={color}>---({Action.Ability})---> {Action.Target.Data.Name}</color>");
 	}
 
 	public bool IsValidAction()

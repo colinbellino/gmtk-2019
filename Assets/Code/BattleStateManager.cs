@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,13 +13,10 @@ public class BattleStateManager
 	public Camera Camera;
 	public GameObject UnitPrefab;
 	public UIFacade UIFacade;
-	public List<Unit> Units = new List<Unit>
-	{
-		new Unit("Ally1", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Ally, 5),
-		new Unit("Ally2", new Abilities[] { Abilities.LightHeal, Abilities.StrongHeal }, Alliances.Ally, 5),
-		new Unit("Foe1", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Foe, 5),
-		new Unit("Foe2", new Abilities[] { Abilities.LightPunch, Abilities.StrongPunch }, Alliances.Foe, 5)
-	};
+	public List<UnitFacade> Units = new List<UnitFacade>();
+
+	public List<UnitFacade> Allies => Units.Where(unit => unit.Data.Alliance == Alliances.Ally).ToList();
+	public List<UnitFacade> Foes => Units.Where(unit => unit.Data.Alliance == Alliances.Foe).ToList();
 
 	public BattleStateManager(GameObject unitPrefab, UIFacade uiFacade)
 	{
@@ -31,6 +29,25 @@ public class BattleStateManager
 			{ BattleStates.PlayerTurn, new PlayerTurnState(this) },
 			{ BattleStates.CPUTurn, new CPUTurnState(this) }
 		};
+
+		// TODO: Clean this up on destroy
+		this.AddObserver(OnUnitDied, UnitFacade.DiedNotification);
+	}
+
+	private void OnUnitDied(object sender, object args)
+	{
+		var unit = (UnitFacade) args;
+		Units.Remove(unit);
+		GameObject.Destroy(unit.gameObject);
+
+		if (Allies.Count == 0)
+		{
+			Debug.LogError("Lose condition.");
+		}
+		else if (Foes.Count == 0)
+		{
+			Debug.LogWarning("Win condition.");
+		}
 	}
 
 	public void Init()

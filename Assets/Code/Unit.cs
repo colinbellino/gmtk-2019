@@ -3,17 +3,21 @@ using UnityEngine;
 public class Unit
 {
 	public string Name;
-	public Abilities[] Abilities;
 	public Alliances Alliance;
 	public UnitFacade Facade;
-	public Stat Health;
+	public Stat Health
+	{
+		get => _health;
+		private set => _health = value;
+	}
 
-	public Unit(string name, Abilities[] abilities, Alliances alliance, int health)
+	private Stat _health;
+
+	public Unit(string name, Alliances alliance, int baseHealth)
 	{
 		Name = name;
-		Abilities = abilities;
 		Alliance = alliance;
-		Health = new Stat(health);
+		_health = new Stat(baseHealth);
 	}
 }
 

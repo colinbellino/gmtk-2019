@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CPUTurnState : TurnState, IBattleState
 {
@@ -11,7 +10,7 @@ public class CPUTurnState : TurnState, IBattleState
 
 	public void EnterState()
 	{
-		_turn = new Turn();
+		_turn = new Turn(Alliances.Foe);
 		_manager.UIFacade.SetTimerAlliance(Alliances.Foe);
 
 		_endOfRoundTimestamp = Time.time + _roundDuration;
@@ -31,11 +30,11 @@ public class CPUTurnState : TurnState, IBattleState
 			return;
 		}
 
-		var allies = _manager.Units.Where(unit => unit.Alliance == Alliances.Ally).ToList();
-		var foes = _manager.Units.Where(unit => unit.Alliance == Alliances.Foe).ToList();
+		var allies = _manager.Allies;
+		var foes = _manager.Foes;
 
 		var randomTarget = allies[Random.Range(0, allies.Count)];
-		var target = randomTarget.Facade;
+		var target = randomTarget;
 		var ability = Random.Range(0, 1) == 0 ? Abilities.LightPunch : Abilities.StrongHeal;
 
 		Plan(target, ability);

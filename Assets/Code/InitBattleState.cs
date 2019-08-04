@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class InitBattleState : IBattleState
 {
@@ -12,10 +13,13 @@ public class InitBattleState : IBattleState
 
 	public void EnterState()
 	{
-		_manager.Units[0].Facade = SpawnUnit(_manager.Units[0], new Vector3(2f, 2f, 0f));
-		_manager.Units[1].Facade = SpawnUnit(_manager.Units[1], new Vector3(2f, 0f, 0f));
-		_manager.Units[2].Facade = SpawnUnit(_manager.Units[2], new Vector3(7f, 2f, 0f));
-		_manager.Units[3].Facade = SpawnUnit(_manager.Units[3], new Vector3(7f, 0f, 0f));
+		_manager.Units = new List<UnitFacade>
+		{
+			SpawnUnit(new Unit("Ally1", Alliances.Ally, 5), new Vector3(2f, 2f, 0f)),
+			SpawnUnit(new Unit("Ally2", Alliances.Ally, 5), new Vector3(2f, 0f, 0f)),
+			SpawnUnit(new Unit("Foe1", Alliances.Foe, 5), new Vector3(7f, 2f, 0f)),
+			SpawnUnit(new Unit("Foe2", Alliances.Foe, 5), new Vector3(7f, 0f, 0f))
+		};
 
 		_manager.ChangeState(BattleStates.PlayerTurn);
 	}

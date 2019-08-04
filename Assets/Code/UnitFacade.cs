@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class UnitFacade : MonoBehaviour
 {
+	public const string DiedNotification = "Unit.Died";
+
 	[SerializeField] private SpriteRenderer _renderer;
 	[SerializeField] private Color _allianceAllyColor;
 	[SerializeField] private Color _allianceFoeColor;
@@ -17,20 +19,20 @@ public class UnitFacade : MonoBehaviour
 	[SerializeField] private FloatingMessageFacade _floatingMessagePrefab;
 	[SerializeField] private Slider _healthSlider;
 
-	public Unit Unit => _unit;
-	private Unit _unit;
+	public Unit Data => _data;
+	private Unit _data;
 	private List<FloatingMessageFacade> _messages = new List<FloatingMessageFacade>();
 
 	public void Init(Unit unit)
 	{
-		_unit = unit;
+		_data = unit;
 		SetName(unit.Name);
 		SetAlliance(unit.Alliance);
 	}
 
 	private void Update()
 	{
-		_healthSlider.value = (float) _unit.Health.Current / (float) _unit.Health.Max;
+		_healthSlider.value = (float) _data.Health.Current / (float) _data.Health.Max;
 	}
 
 	public void DrawLineTo(Vector3 endPoint)
@@ -51,13 +53,18 @@ public class UnitFacade : MonoBehaviour
 
 	public void Damage(int value)
 	{
-		_unit.Health.Current = _unit.Health.Current - value;
+		_data.Health.Current = _data.Health.Current - value;
 		CreateMessage(value.ToString(), Color.white);
+
+		if (_data.Health.Current <= 0)
+		{
+			OnDeath();
+		}
 	}
 
 	public void Heal(int value)
 	{
-		_unit.Health.Current = _unit.Health.Current + value;
+		_data.Health.Current = _data.Health.Current + value;
 		CreateMessage(value.ToString(), Color.green);
 	}
 
@@ -78,5 +85,12 @@ public class UnitFacade : MonoBehaviour
 	{
 		var color = alliance == Alliances.Ally ? _allianceAllyColor : _allianceFoeColor;
 		_renderer.color = color;
+	}
+
+	public void OnDeath()
+	{
+		var color = Data.Alliance == Alliances.Ally ? "blue" : "red";
+		Debug.Log($"<color={color}>{Data.Name} died.</color>");
+		this.PostNotification(DiedNotification, this);
 	}
 }

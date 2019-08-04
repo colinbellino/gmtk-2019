@@ -23,5 +23,6 @@ public class UIFacade : MonoBehaviour
 	public void SetTimerAlliance(Alliances alliance)
 	{
 		_timerImage.sprite = alliance == Alliances.Ally ? _timerAllySprite : _timerFoeSprite;
+		_timerImage.fillClockwise = alliance == Alliances.Foe;
 	}
 }

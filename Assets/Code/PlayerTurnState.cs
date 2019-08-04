@@ -39,6 +39,7 @@ public class PlayerTurnState : TurnState, IBattleState
 				var target = unit;
 				var ability = Input.GetMouseButtonUp(0) ? Abilities.LightPunch : Abilities.StrongHeal;
 				Plan(target, ability);
+				Act();
 			}
 		}
 	}

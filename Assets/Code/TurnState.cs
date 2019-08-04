@@ -15,8 +15,10 @@ public abstract class TurnState
 		_turn.Action = new BattleAction();
 		_turn.Action.Target = target;
 		_turn.Action.Ability = ability;
+	}
 
-		// Act
+	protected void Act()
+	{
 		if (_turn.IsValidAction())
 		{
 			_turn.Act();

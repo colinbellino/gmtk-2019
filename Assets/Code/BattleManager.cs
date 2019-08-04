@@ -9,7 +9,7 @@ public class BattleManager : MonoBehaviour
 
 	private void Start()
 	{
-		_stateManager = new BattleStateManager(_uiFacade, _audioSource);
+		_stateManager = new BattleStateManager(this, _uiFacade, _audioSource);
 		_stateManager.Init();
 	}
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class BattleStateManager
 	private IBattleState _currentStateHandler;
 	private AudioSource _audioSource;
 
+	public MonoBehaviour AsyncGenerator;
 	public Camera Camera;
 	public UIFacade UIFacade;
 	public List<UnitFacade> Units = new List<UnitFacade>();
@@ -19,9 +21,10 @@ public class BattleStateManager
 	public List<UnitFacade> Allies => Units.Where(unit => unit.Data.Alliance == Alliances.Ally).ToList();
 	public List<UnitFacade> Foes => Units.Where(unit => unit.Data.Alliance == Alliances.Foe).ToList();
 
-	public BattleStateManager(UIFacade uiFacade, AudioSource audioSource)
+	public BattleStateManager(MonoBehaviour asyncGenerator, UIFacade uiFacade, AudioSource audioSource)
 	{
 		UIFacade = uiFacade;
+		AsyncGenerator = asyncGenerator;
 		_audioSource = audioSource;
 
 		_states = new Dictionary<BattleStates, IBattleState>
@@ -51,7 +54,7 @@ public class BattleStateManager
 		_audioSource.PlayOneShot(audioClip);
 	}
 
-	private void OnUnitDied(object sender, object args)
+	private async void OnUnitDied(object sender, object args)
 	{
 		var unit = (UnitFacade) args;
 		Units.Remove(unit);
@@ -62,10 +65,12 @@ public class BattleStateManager
 
 		if (Allies.Count == 0)
 		{
+			await Task.Delay(500);
 			SceneManager.LoadScene("Lose");
 		}
 		else if (Foes.Count == 0)
 		{
+			await Task.Delay(500);
 			SceneManager.LoadScene("Win");
 		}
 	}

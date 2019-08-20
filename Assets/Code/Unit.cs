@@ -1,34 +1,20 @@
-using System;
-using UnityEngine;
-
 public class Unit
 {
 	public string Name;
 	public Alliances Alliance;
 	public UnitFacade Facade;
-	public Stat Health
-	{
-		get => _health;
-		private set => _health = value;
-	}
-
-	private Stat _health;
+	public Stat Health { get; private set; }
 
 	public Unit(string name, Alliances alliance)
 	{
 		Name = name;
 		Alliance = alliance;
-		_health = new Stat();
+		Health = new Stat();
 	}
 
 	public void SetHealth(int baseHealth)
 	{
-		_health = new Stat(baseHealth);
-	}
-
-	internal void SetHealth(object health)
-	{
-		throw new NotImplementedException();
+		Health = new Stat(baseHealth);
 	}
 }
 

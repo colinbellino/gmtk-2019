@@ -4,9 +4,9 @@ public class Turn
 {
 	public BattleAction Action;
 
-	private BattleStateManager _manager;
+	private readonly BattleStateManager _manager;
 
-	public Turn(BattleStateManager manager, UnitFacade unit)
+	public Turn(BattleStateManager manager)
 	{
 		_manager = manager;
 

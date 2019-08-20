@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,27 +9,25 @@ public class UnitFacade : MonoBehaviour
 	public const string DiedNotification = "Unit.Died";
 
 	[SerializeField] private int _health = 3;
-
-	[SerializeField] private SpriteRenderer _renderer;
 	[SerializeField] private Animator _animator;
 	[SerializeField] private Transform _floatingMessageContainer;
 	[SerializeField] private FloatingMessageFacade _floatingMessagePrefab;
 	[SerializeField] private Slider _healthSlider;
 	[SerializeField] private AudioSource _audioSource;
 
-	public Unit Data => _data;
-	private Unit _data;
-	private List<FloatingMessageFacade> _messages = new List<FloatingMessageFacade>();
+	public Unit Data { get; private set; }
+
+	private readonly List<FloatingMessageFacade> _messages = new List<FloatingMessageFacade>();
 
 	public void Init(Unit unit)
 	{
-		_data = unit;
-		_data.SetHealth(_health);
+		Data = unit;
+		Data.SetHealth(_health);
 	}
 
-	private void Update()
+	public void Update()
 	{
-		_healthSlider.value = (float) _data.Health.Current / (float) _data.Health.Max;
+		_healthSlider.value = (float)Data.Health.Current / (float)Data.Health.Max;
 	}
 
 	public void CreateMessage(string text, Color color)
@@ -60,10 +57,10 @@ public class UnitFacade : MonoBehaviour
 		var suffix = isCrit ? "!" : "";
 		var modifiedValue = value * multiplier;
 
-		_data.Health.Current = _data.Health.Current - modifiedValue;
+		Data.Health.Current = Data.Health.Current - modifiedValue;
 		CreateMessage(Math.Abs(modifiedValue).ToString() + suffix, color);
 
-		if (_data.Health.Current <= 0)
+		if (Data.Health.Current <= 0)
 		{
 			OnDeath();
 		}

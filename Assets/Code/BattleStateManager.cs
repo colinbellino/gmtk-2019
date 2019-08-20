@@ -1,18 +1,15 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class BattleStateManager
 {
-	private Dictionary<BattleStates, IBattleState> _states;
+	private readonly Dictionary<BattleStates, IBattleState> _states;
 
 	private BattleStates _currentState;
 	private IBattleState _currentStateHandler;
-	private AudioSource _audioSource;
+	private readonly AudioSource _audioSource;
 
 	public MonoBehaviour AsyncGenerator;
 	public Camera Camera;
@@ -67,7 +64,7 @@ public class BattleStateManager
 
 	private async void OnUnitDied(object sender, object args)
 	{
-		var unit = (UnitFacade) args;
+		var unit = (UnitFacade)args;
 		if (unit.Data.Alliance == Alliances.Ally)
 		{
 			Allies.Remove(unit);

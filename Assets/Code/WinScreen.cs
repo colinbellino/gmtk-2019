@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class WinScreen : MonoBehaviour
 {
-	private void Update()
+	public void Update()
 	{
 		if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
 		{

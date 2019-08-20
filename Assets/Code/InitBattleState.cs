@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class InitBattleState : IBattleState
 {
-	private BattleStateManager _manager;
-	private float _endOfTurnTimestamp;
+	private readonly BattleStateManager _manager;
 
 	public InitBattleState(BattleStateManager manager)
 	{

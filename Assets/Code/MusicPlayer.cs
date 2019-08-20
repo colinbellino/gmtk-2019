@@ -27,17 +27,17 @@ public class MusicPlayer : MonoBehaviour
 		}
 	}
 
-	private void OnEnable()
+	public void OnEnable()
 	{
 		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
-	private void OnDisable()
+	public void OnDisable()
 	{
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 
-	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		if (scene.name == "Lose" || scene.name == "Title")
 		{

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class CPUTurnState : TurnState, IBattleState
@@ -18,7 +17,7 @@ public class CPUTurnState : TurnState, IBattleState
 	public IEnumerator Sequence()
 	{
 		var unit = _manager.Foes[_manager.GetNextFoeIndex()];
-		_turn = new Turn(_manager, unit);
+		_turn = new Turn(_manager);
 		_manager.UIFacade.SetTimerAlliance(Alliances.Foe);
 
 		_endOfRoundTimestamp = Time.time + _roundDuration;

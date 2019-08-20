@@ -8,13 +8,13 @@ public class BattleManager : MonoBehaviour
 	[SerializeField] private UIFacade _uiFacade;
 	[SerializeField] private AudioSource _audioSource;
 
-	private void Start()
+	public void Start()
 	{
 		_stateManager = new BattleStateManager(this, _uiFacade, _audioSource);
 		_stateManager.Init();
 	}
 
-	private void Update()
+	public void Update()
 	{
 #if UNITY_EDITOR
 		if (Input.GetKey(KeyCode.Return))
@@ -26,7 +26,7 @@ public class BattleManager : MonoBehaviour
 		_stateManager.Tick();
 	}
 
-	private void OnDestroy()
+	public void OnDestroy()
 	{
 		_stateManager.OnDestroy();
 	}

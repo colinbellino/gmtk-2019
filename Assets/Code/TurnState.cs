@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public abstract class TurnState
@@ -12,10 +11,12 @@ public abstract class TurnState
 
 	protected void Plan(UnitFacade initiator, UnitFacade target, Abilities ability)
 	{
-		_turn.Action = new BattleAction();
-		_turn.Action.Initiator = initiator;
-		_turn.Action.Target = target;
-		_turn.Action.Ability = ability;
+		_turn.Action = new BattleAction
+		{
+			Initiator = initiator,
+			Target = target,
+			Ability = ability
+		};
 	}
 
 	protected void Act()
@@ -35,10 +36,9 @@ public abstract class TurnState
 
 	protected UnitFacade GetUnitUnderMouseCursor()
 	{
-		RaycastHit hit;
 		var ray = _manager.Camera.ScreenPointToRay(Input.mousePosition);
 
-		if (Physics.Raycast(ray, out hit))
+		if (Physics.Raycast(ray, out RaycastHit hit))
 		{
 			Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.yellow);
 			return hit.collider.GetComponent<UnitFacade>();

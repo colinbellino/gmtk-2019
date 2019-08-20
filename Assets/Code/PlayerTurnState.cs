@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerTurnState : TurnState, IBattleState
 {
@@ -12,7 +11,7 @@ public class PlayerTurnState : TurnState, IBattleState
 	public void EnterState()
 	{
 		var unit = _manager.Allies[_manager.GetNextAllyIndex()];
-		_turn = new Turn(_manager, unit);
+		_turn = new Turn(_manager);
 		_manager.UIFacade.SetTimerAlliance(Alliances.Ally);
 		_manager.UIFacade.UpdateCurrentUnitIndicator(unit);
 

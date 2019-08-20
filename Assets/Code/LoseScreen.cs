@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoseScreen : MonoBehaviour
+namespace OneSecond
 {
-	public void Update()
+	public class LoseScreen : MonoBehaviour
 	{
-		if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+		public void Update()
 		{
-			SceneManager.LoadScene("Title");
-		}
+			if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+			{
+				SceneManager.LoadScene("Title");
+			}
 
-		if (Input.GetKey(KeyCode.Escape))
-		{
-			SceneManager.LoadScene("Title");
+			if (Input.GetKey(KeyCode.Escape))
+			{
+				SceneManager.LoadScene("Title");
+			}
 		}
 	}
 }

@@ -1,34 +1,37 @@
-public class Unit
+namespace OneSecond
 {
-	public string Name;
-	public Alliances Alliance;
-	public UnitFacade Facade;
-	public Stat Health { get; private set; }
-
-	public Unit(string name, Alliances alliance)
+	public class Unit
 	{
-		Name = name;
-		Alliance = alliance;
-		Health = new Stat();
+		public readonly string Name;
+		public readonly Alliances Alliance;
+
+		public Stat Health { get; private set; }
+
+		public Unit(string name, Alliances alliance)
+		{
+			Name = name;
+			Alliance = alliance;
+			Health = new Stat();
+		}
+
+		public void SetHealth(int baseHealth)
+		{
+			Health = new Stat(baseHealth);
+		}
 	}
 
-	public void SetHealth(int baseHealth)
+	public enum Alliances
 	{
-		Health = new Stat(baseHealth);
+		Ally,
+		Foe
 	}
-}
 
-public enum Alliances
-{
-	Ally,
-	Foe
-}
-
-public enum Abilities
-{
-	None,
-	LightPunch,
-	WenkPunch,
-	LightHeal,
-	StrongHeal
+	public enum Abilities
+	{
+		None,
+		LightPunch,
+		WenkPunch,
+		LightHeal,
+		StrongHeal
+	}
 }

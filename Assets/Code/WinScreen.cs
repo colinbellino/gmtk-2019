@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinScreen : MonoBehaviour
+namespace OneSecond
 {
-	public void Update()
+	public class WinScreen : MonoBehaviour
 	{
-		if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+		public void Update()
 		{
-			SceneManager.LoadScene("Battle");
-		}
+			if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+			{
+				SceneManager.LoadScene("Battle");
+			}
 
-		if (Input.GetKey(KeyCode.Escape))
-		{
-			SceneManager.LoadScene("Battle");
+			if (Input.GetKey(KeyCode.Escape))
+			{
+				SceneManager.LoadScene("Battle");
+			}
 		}
 	}
 }

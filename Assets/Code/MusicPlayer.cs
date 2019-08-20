@@ -1,47 +1,51 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-public class MusicPlayer : MonoBehaviour
+namespace OneSecond
 {
-	[SerializeField] private AudioSource _audioSource;
-
-	public static MusicPlayer instance;
-
-	public void Start()
+	public class MusicPlayer : MonoBehaviour
 	{
-		if (!instance)
+		[FormerlySerializedAs("_audioSource")] [SerializeField] private AudioSource audioSource;
+
+		private static MusicPlayer _instance;
+
+		public void Start()
 		{
-			instance = this;
+			if (!_instance)
+			{
+				_instance = this;
+			}
+			else
+			{
+				Destroy(gameObject);
+			}
+
+			DontDestroyOnLoad(gameObject);
+
+			if (!audioSource.isPlaying)
+			{
+				audioSource.time = 0f;
+				audioSource.Play();
+			}
 		}
-		else
+
+		public void OnEnable()
 		{
-			Object.Destroy(gameObject);
+			SceneManager.sceneLoaded += OnSceneLoaded;
 		}
 
-		DontDestroyOnLoad(gameObject);
-
-		if (_audioSource.isPlaying == false)
+		public void OnDisable()
 		{
-			_audioSource.time = 0f;
-			_audioSource.Play();
+			SceneManager.sceneLoaded -= OnSceneLoaded;
 		}
-	}
 
-	public void OnEnable()
-	{
-		SceneManager.sceneLoaded += OnSceneLoaded;
-	}
-
-	public void OnDisable()
-	{
-		SceneManager.sceneLoaded -= OnSceneLoaded;
-	}
-
-	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-	{
-		if (scene.name == "Lose" || scene.name == "Title")
+		private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 		{
-			_audioSource.Stop();
+			if (scene.name == "Lose" || scene.name == "Title")
+			{
+				audioSource.Stop();
+			}
 		}
 	}
 }

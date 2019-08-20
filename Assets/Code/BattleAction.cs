@@ -1,6 +1,9 @@
-public class BattleAction
+namespace OneSecond
 {
-	public UnitFacade Initiator;
-	public UnitFacade Target;
-	public Abilities Ability;
+	public class BattleAction
+	{
+		public UnitFacade Initiator;
+		public UnitFacade Target;
+		public Abilities Ability;
+	}
 }

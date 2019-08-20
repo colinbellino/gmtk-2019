@@ -1,18 +1,22 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class FloatingMessageFacade : MonoBehaviour
+namespace OneSecond
 {
-	[SerializeField] private TextMeshProUGUI _text;
-
-	public void Init(string text, Color color)
+	public class FloatingMessageFacade : MonoBehaviour
 	{
-		_text.text = text;
-		_text.color = color;
-	}
+		[FormerlySerializedAs("_text")] [SerializeField] private TextMeshProUGUI text;
 
-	public void Update()
-	{
-		transform.Translate(Vector3.up * Time.deltaTime * 1f, Space.World);
+		public void Init(string textValue, Color color)
+		{
+			text.text = textValue;
+			text.color = color;
+		}
+
+		public void Update()
+		{
+			transform.Translate(1f * Time.deltaTime * Vector3.up, Space.World);
+		}
 	}
 }

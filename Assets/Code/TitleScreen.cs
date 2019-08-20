@@ -1,39 +1,42 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TitleScreen : MonoBehaviour
+namespace OneSecond
 {
-	public void Update()
+	public class TitleScreen : MonoBehaviour
 	{
-		if (Input.GetKey(KeyCode.Escape))
+		public void Update()
 		{
-			OnExit();
+			if (Input.GetKey(KeyCode.Escape))
+			{
+				OnExit();
+			}
 		}
-	}
 
-	public void OnStart()
-	{
-		SceneManager.LoadScene("Help");
-	}
+		public void OnStart()
+		{
+			SceneManager.LoadScene("Help");
+		}
 
-	public void OnHelp()
-	{
-		Debug.Log("OnHelp");
-	}
+		public void OnHelp()
+		{
+			Debug.Log("OnHelp");
+		}
 
-	public void Twitter()
-	{
-		Application.OpenURL("https://twitter.com/colinbellino");
-	}
+		public void Twitter()
+		{
+			Application.OpenURL("https://twitter.com/colinbellino");
+		}
 
-	public void OnExit()
-	{
+		public void OnExit()
+		{
 #if UNITY_EDITOR
-		UnityEditor.EditorApplication.isPlaying = false;
+			UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_WEBPLAYER
 		Application.OpenURL(webplayerQuitURL);
 #else
 		Application.Quit();
 #endif
+		}
 	}
 }

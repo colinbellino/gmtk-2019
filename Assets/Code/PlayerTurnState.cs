@@ -1,51 +1,54 @@
 ﻿using UnityEngine;
 
-public class PlayerTurnState : TurnState, IBattleState
+namespace OneSecond
 {
-	public PlayerTurnState(BattleStateManager manager)
+	public class PlayerTurnState : TurnState, IBattleState
 	{
-		_manager = manager;
-		_nextState = BattleStates.CPUTurn;
-	}
-
-	public void EnterState()
-	{
-		var unit = _manager.Allies[_manager.GetNextAllyIndex()];
-		_turn = new Turn(_manager);
-		_manager.UIFacade.SetTimerAlliance(Alliances.Ally);
-		_manager.UIFacade.UpdateCurrentUnitIndicator(unit);
-
-		_endOfRoundTimestamp = Time.time + _roundDuration;
-	}
-
-	public void Update()
-	{
-		_manager.UIFacade.UpdateTimer(_endOfRoundTimestamp - Time.time);
-
-		if (Time.time >= _endOfRoundTimestamp)
+		public PlayerTurnState(BattleStateManager manager)
 		{
-			_manager.CurrentAllyIndex = _manager.GetNextAllyIndex();
-			EndRound();
+			Manager = manager;
+			NextState = BattleStates.CpuTurn;
 		}
 
-		if (_acted)
+		public void EnterState()
 		{
-			return;
+			var unit = Manager.Allies[Manager.GetNextAllyIndex()];
+			Turn = new Turn(Manager);
+			Manager.UiFacade.SetTimerAlliance(Alliances.Ally);
+			Manager.UiFacade.UpdateCurrentUnitIndicator(unit);
+
+			EndOfRoundTimestamp = Time.time + RoundDuration;
 		}
 
-		if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+		public void Update()
 		{
-			var unit = GetUnitUnderMouseCursor();
-			if (unit)
+			Manager.UiFacade.UpdateTimer(EndOfRoundTimestamp - Time.time);
+
+			if (Time.time >= EndOfRoundTimestamp)
 			{
-				var target = unit;
-				var initiator = _manager.Allies[_manager.CurrentAllyIndex];
-				var ability = Input.GetMouseButtonUp(0) ? Abilities.WenkPunch : Abilities.StrongHeal;
-				Plan(initiator, target, ability);
-				Act();
+				Manager.CurrentAllyIndex = Manager.GetNextAllyIndex();
+				EndRound();
+			}
+
+			if (Acted)
+			{
+				return;
+			}
+
+			if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+			{
+				var unit = GetUnitUnderMouseCursor();
+				if (unit)
+				{
+					var target = unit;
+					var initiator = Manager.Allies[Manager.CurrentAllyIndex];
+					var ability = Input.GetMouseButtonUp(0) ? Abilities.WenkPunch : Abilities.StrongHeal;
+					Plan(initiator, target, ability);
+					Act();
+				}
 			}
 		}
-	}
 
-	public void ExitState() { }
+		public void ExitState() { }
+	}
 }

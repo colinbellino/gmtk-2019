@@ -1,33 +1,37 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-public class BattleManager : MonoBehaviour
+namespace OneSecond
 {
-	private BattleStateManager _stateManager;
-
-	[SerializeField] private UIFacade _uiFacade;
-	[SerializeField] private AudioSource _audioSource;
-
-	public void Start()
+	public class BattleManager : MonoBehaviour
 	{
-		_stateManager = new BattleStateManager(this, _uiFacade, _audioSource);
-		_stateManager.Init();
-	}
+		private BattleStateManager _stateManager;
 
-	public void Update()
-	{
-#if UNITY_EDITOR
-		if (Input.GetKey(KeyCode.Return))
+		[FormerlySerializedAs("_uiFacade")] [SerializeField] private UiFacade uiFacade;
+		[FormerlySerializedAs("_audioSource")] [SerializeField] private AudioSource audioSource;
+
+		public void Start()
 		{
-			SceneManager.LoadScene("Battle");
+			_stateManager = new BattleStateManager(this, uiFacade, audioSource);
+			_stateManager.Init();
 		}
+
+		public void Update()
+		{
+#if UNITY_EDITOR
+			if (Input.GetKey(KeyCode.Return))
+			{
+				SceneManager.LoadScene("Battle");
+			}
 #endif
 
-		_stateManager.Tick();
-	}
+			_stateManager.Tick();
+		}
 
-	public void OnDestroy()
-	{
-		_stateManager.OnDestroy();
+		public void OnDestroy()
+		{
+			_stateManager.OnDestroy();
+		}
 	}
 }

@@ -1,49 +1,52 @@
 using UnityEngine;
 
-public abstract class TurnState
+namespace OneSecond
 {
-	protected BattleStateManager _manager;
-	protected float _roundDuration = 1f;
-	protected Turn _turn;
-	protected float _endOfRoundTimestamp;
-	protected BattleStates _nextState;
-	protected bool _acted;
-
-	protected void Plan(UnitFacade initiator, UnitFacade target, Abilities ability)
+	public abstract class TurnState
 	{
-		_turn.Action = new BattleAction
+		protected BattleStateManager Manager;
+		protected const float RoundDuration = 1f;
+		protected Turn Turn;
+		protected float EndOfRoundTimestamp;
+		protected BattleStates NextState;
+		protected bool Acted;
+
+		protected void Plan(UnitFacade initiator, UnitFacade target, Abilities ability)
 		{
-			Initiator = initiator,
-			Target = target,
-			Ability = ability
-		};
-	}
-
-	protected void Act()
-	{
-		_turn.Act();
-		_acted = true;
-	}
-
-	protected void EndRound()
-	{
-		_turn.EndRound();
-		_acted = false;
-		_endOfRoundTimestamp = Time.time + _roundDuration;
-
-		_manager.ChangeState(_nextState);
-	}
-
-	protected UnitFacade GetUnitUnderMouseCursor()
-	{
-		var ray = _manager.Camera.ScreenPointToRay(Input.mousePosition);
-
-		if (Physics.Raycast(ray, out RaycastHit hit))
-		{
-			Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.yellow);
-			return hit.collider.GetComponent<UnitFacade>();
+			Turn.Action = new BattleAction
+			{
+				Initiator = initiator,
+				Target = target,
+				Ability = ability
+			};
 		}
 
-		return null;
+		protected void Act()
+		{
+			Turn.Act();
+			Acted = true;
+		}
+
+		protected void EndRound()
+		{
+			Turn.EndRound();
+			Acted = false;
+			EndOfRoundTimestamp = Time.time + RoundDuration;
+
+			Manager.ChangeState(NextState);
+		}
+
+		protected UnitFacade GetUnitUnderMouseCursor()
+		{
+			var ray = Manager.Camera.ScreenPointToRay(Input.mousePosition);
+
+			if (Physics.Raycast(ray, out RaycastHit hit))
+			{
+				Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.yellow);
+				return hit.collider.GetComponent<UnitFacade>();
+			}
+
+			return null;
+		}
 	}
 }

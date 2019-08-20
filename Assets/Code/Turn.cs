@@ -1,47 +1,50 @@
 using UnityEngine;
 
-public class Turn
+namespace OneSecond
 {
-	public BattleAction Action;
-
-	private readonly BattleStateManager _manager;
-
-	public Turn(BattleStateManager manager)
+	public class Turn
 	{
-		_manager = manager;
+		public BattleAction Action;
 
-		Action = new BattleAction();
-	}
+		private readonly BattleStateManager _manager;
 
-	public void EndRound()
-	{
-		Action = null;
-	}
-
-	public void Act()
-	{
-		switch (Action.Ability)
+		public Turn(BattleStateManager manager)
 		{
-			case Abilities.LightPunch:
-				Action.Target.Damage(1);
-				break;
-			case Abilities.WenkPunch:
-				Action.Target.Damage(1);
-				break;
-			case Abilities.LightHeal:
-				Action.Target.Heal(1);
-				break;
-			case Abilities.StrongHeal:
-				Action.Target.Heal(2);
-				break;
+			_manager = manager;
+
+			Action = new BattleAction();
 		}
 
-		Action.Initiator.Wiggle();
+		public void EndRound()
+		{
+			Action = null;
+		}
 
-		var clip = Resources.Load<AudioClip>($"Sounds/{Action.Ability.ToString()}");
-		_manager.PlayOneShot(clip);
+		public void Act()
+		{
+			switch (Action.Ability)
+			{
+				case Abilities.LightPunch:
+					Action.Target.Damage(1);
+					break;
+				case Abilities.WenkPunch:
+					Action.Target.Damage(1);
+					break;
+				case Abilities.LightHeal:
+					Action.Target.Heal(1);
+					break;
+				case Abilities.StrongHeal:
+					Action.Target.Heal(2);
+					break;
+			}
 
-		var color = Action.Initiator.Data.Alliance == Alliances.Ally ? "blue" : "red";
-		Debug.Log($"<color={color}>---({Action.Ability})---> {Action.Target.Data.Name}</color>");
+			Action.Initiator.Wiggle();
+
+			var clip = Resources.Load<AudioClip>($"Sounds/{Action.Ability.ToString()}");
+			_manager.PlayOneShot(clip);
+
+			var color = Action.Initiator.Data.Alliance == Alliances.Ally ? "blue" : "red";
+			Debug.Log($"<color={color}>---({Action.Ability.ToString()})---> {Action.Target.Data.Name}</color>");
+		}
 	}
 }

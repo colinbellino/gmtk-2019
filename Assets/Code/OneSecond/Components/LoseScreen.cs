@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace OneSecond
+namespace OneSecond.Components
 {
-	public class HelpScreen : MonoBehaviour
+	public class LoseScreen : MonoBehaviour
 	{
 		public void Update()
 		{
 			if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
 			{
-				SceneManager.LoadScene("Battle");
+				SceneManager.LoadScene("Title");
 			}
 
 			if (Input.GetKey(KeyCode.Escape))

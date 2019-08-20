@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace OneSecond
+namespace OneSecond.Components
 {
-	public class WinScreen : MonoBehaviour
+	public class HelpScreen : MonoBehaviour
 	{
 		public void Update()
 		{
@@ -14,7 +14,7 @@ namespace OneSecond
 
 			if (Input.GetKey(KeyCode.Escape))
 			{
-				SceneManager.LoadScene("Battle");
+				SceneManager.LoadScene("Title");
 			}
 		}
 	}

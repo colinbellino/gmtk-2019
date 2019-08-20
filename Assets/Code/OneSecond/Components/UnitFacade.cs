@@ -1,21 +1,20 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace OneSecond
+namespace OneSecond.Components
 {
 	public class UnitFacade : MonoBehaviour
 	{
 		public const string DiedNotification = "Unit.Died";
 
-		[FormerlySerializedAs("_health")] [SerializeField] private int health = 3;
-		[FormerlySerializedAs("_animator")] [SerializeField] private Animator animator;
-		[FormerlySerializedAs("_floatingMessageContainer")] [SerializeField] private Transform floatingMessageContainer;
-		[FormerlySerializedAs("_floatingMessagePrefab")] [SerializeField] private FloatingMessageFacade floatingMessagePrefab;
-		[FormerlySerializedAs("_healthSlider")] [SerializeField] private Slider healthSlider;
-		[FormerlySerializedAs("_audioSource")] [SerializeField] private AudioSource audioSource;
+		[SerializeField] private int health = 3;
+		[SerializeField] private Animator animator;
+		[SerializeField] private Transform floatingMessageContainer;
+		[SerializeField] private FloatingMessageFacade floatingMessagePrefab;
+		[SerializeField] private Slider healthSlider;
+		[SerializeField] private AudioSource audioSource;
 
 		public Unit Data { get; private set; }
 

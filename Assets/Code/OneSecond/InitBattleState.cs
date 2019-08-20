@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using OneSecond.Components;
 using UnityEngine;
 
 namespace OneSecond

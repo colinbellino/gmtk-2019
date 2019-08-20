@@ -1,12 +1,11 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace OneSecond
+namespace OneSecond.Components
 {
 	public class FloatingMessageFacade : MonoBehaviour
 	{
-		[FormerlySerializedAs("_text")] [SerializeField] private TextMeshProUGUI text;
+		[SerializeField] private TextMeshProUGUI text;
 
 		public void Init(string textValue, Color color)
 		{

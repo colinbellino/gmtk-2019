@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace OneSecond
+namespace OneSecond.Components
 {
 	public class TitleScreen : MonoBehaviour
 	{

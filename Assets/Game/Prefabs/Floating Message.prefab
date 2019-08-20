@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 273518684222291157}
   - component: {fileID: 6447058138553978757}
-  - component: {fileID: 4685006027601311931}
   - component: {fileID: 3348486251737577411}
+  - component: {fileID: 4685006027601311931}
   m_Layer: 5
   m_Name: Floating Message
   m_TagString: Untagged
@@ -46,6 +46,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7462462093147073178}
   m_CullTransparentMesh: 0
+--- !u!114 &3348486251737577411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7462462093147073178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c34ea37b7b75b84badfc0f16616bac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 4685006027601311931}
 --- !u!114 &4685006027601311931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,16 +172,3 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3348486251737577411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7462462093147073178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c34ea37b7b75b84badfc0f16616bac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _text: {fileID: 4685006027601311931}

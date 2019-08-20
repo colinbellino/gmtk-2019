@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
-namespace OneSecond
+namespace OneSecond.Components
 {
 	public class BattleManager : MonoBehaviour
 	{
 		private BattleStateManager _stateManager;
 
-		[FormerlySerializedAs("_uiFacade")] [SerializeField] private UiFacade uiFacade;
-		[FormerlySerializedAs("_audioSource")] [SerializeField] private AudioSource audioSource;
+		[SerializeField] private UiFacade uiFacade;
+		[SerializeField] private AudioSource audioSource;
 
 		public void Start()
 		{

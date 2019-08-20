@@ -48,14 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db09c89f7af4e543b6ba232c919ceda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 3
-  _renderer: {fileID: 5554849540158970688}
-  _animator: {fileID: 5679172517291627326}
-  _floatingMessageContainer: {fileID: 4893940397569906959}
-  _floatingMessagePrefab: {fileID: 3348486251737577411, guid: a24fefab178447c4cb92ea07117b209c,
+  health: 3
+  animator: {fileID: 5679172517291627326}
+  floatingMessageContainer: {fileID: 4893940397569906959}
+  floatingMessagePrefab: {fileID: 3348486251737577411, guid: a24fefab178447c4cb92ea07117b209c,
     type: 3}
-  _healthSlider: {fileID: 8200178056659457919}
-  _audioSource: {fileID: 1081891476014757143}
+  healthSlider: {fileID: 8200178056659457919}
+  audioSource: {fileID: 1081891476014757143}
 --- !u!65 &4525705586475508117
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,3 +1,5 @@
+using OneSecond.Components;
+
 namespace OneSecond
 {
 	public class BattleAction

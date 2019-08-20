@@ -379,8 +379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7890754ed43d03e418ebf7d79256b042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiFacade: {fileID: 945755615}
-  _audioSource: {fileID: 876208494}
+  uiFacade: {fileID: 945755615}
+  audioSource: {fileID: 876208494}
 --- !u!4 &876208493
 Transform:
   m_ObjectHideFlags: 0
@@ -603,13 +603,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6303a91c3ac3f45871aae99109d3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timerContainer: {fileID: 1190476748}
-  _timerImage: {fileID: 29454257}
-  _timerAllySprite: {fileID: 5549674902079489176, guid: a7ad0f066501d064388d0e152956d9dc,
+  timerImage: {fileID: 29454257}
+  timerAllySprite: {fileID: 5549674902079489176, guid: a7ad0f066501d064388d0e152956d9dc,
     type: 3}
-  _timerFoeSprite: {fileID: 840316196008112781, guid: ad6de7dfb4de0d24b843c0af5f4b14f6,
+  timerFoeSprite: {fileID: 840316196008112781, guid: ad6de7dfb4de0d24b843c0af5f4b14f6,
     type: 3}
-  _currentUnitIndicator: {fileID: 1359792088}
+  currentUnitIndicator: {fileID: 1359792088}
 --- !u!1 &1006873609
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4832ed1e3a29e054baede99300fd788a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 1360938031}
+  audioSource: {fileID: 1360938031}
 --- !u!1 &1649082688
 GameObject:
   m_ObjectHideFlags: 0

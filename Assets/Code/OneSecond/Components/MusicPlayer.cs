@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
-namespace OneSecond
+namespace OneSecond.Components
 {
 	public class MusicPlayer : MonoBehaviour
 	{
-		[FormerlySerializedAs("_audioSource")] [SerializeField] private AudioSource audioSource;
+		[SerializeField] private AudioSource audioSource;
 
 		private static MusicPlayer _instance;
 

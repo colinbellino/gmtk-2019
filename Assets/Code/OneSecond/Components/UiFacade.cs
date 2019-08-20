@@ -1,15 +1,14 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace OneSecond
+namespace OneSecond.Components
 {
 	public class UiFacade : MonoBehaviour
 	{
-		[FormerlySerializedAs("_timerImage")] [SerializeField] private Image timerImage;
-		[FormerlySerializedAs("_timerAllySprite")] [SerializeField] private Sprite timerAllySprite;
-		[FormerlySerializedAs("_timerFoeSprite")] [SerializeField] private Sprite timerFoeSprite;
-		[FormerlySerializedAs("_currentUnitIndicator")] [SerializeField] private Transform currentUnitIndicator;
+		[SerializeField] private Image timerImage;
+		[SerializeField] private Sprite timerAllySprite;
+		[SerializeField] private Sprite timerFoeSprite;
+		[SerializeField] private Transform currentUnitIndicator;
 
 		public void UpdateTimer(float value)
 		{

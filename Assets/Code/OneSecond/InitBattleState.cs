@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using OneSecond.Components;
+using OneSecond.Unit;
 using UnityEngine;
 
 namespace OneSecond
@@ -17,8 +18,8 @@ namespace OneSecond
 		{
 			_manager.Allies = new List<UnitFacade>
 			{
-				SpawnUnit(new Unit("Ally1", Alliances.Ally), 0),
-				SpawnUnit(new Unit("Ally1", Alliances.Ally), 1)
+				SpawnUnit(new Unit.Unit("Ally1", Alliances.Ally), 0),
+				SpawnUnit(new Unit.Unit("Ally1", Alliances.Ally), 1)
 			};
 			_manager.Foes = GenerateRandomFoes();
 
@@ -33,7 +34,7 @@ namespace OneSecond
 			for (int i = 0; i <= randomCount; i++)
 			{
 				var randomEnemy = Random.Range(1, 3);
-				var unit = SpawnUnit(new Unit($"Foe{randomEnemy.ToString()}", Alliances.Foe), i);
+				var unit = SpawnUnit(new Unit.Unit($"Foe{randomEnemy.ToString()}", Alliances.Foe), i);
 				foes.Add(unit);
 			}
 
@@ -46,7 +47,7 @@ namespace OneSecond
 			return new Vector3(2f * index + offset, -2.936f, 0f);
 		}
 
-		private UnitFacade SpawnUnit(Unit unit, int index)
+		private UnitFacade SpawnUnit(Unit.Unit unit, int index)
 		{
 			var instance = Object.Instantiate(Resources.Load<GameObject>(unit.Name));
 			instance.transform.position = GetPosition(unit.Alliance, index);

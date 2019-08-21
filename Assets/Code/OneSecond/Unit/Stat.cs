@@ -1,6 +1,6 @@
 using System;
 
-namespace OneSecond
+namespace OneSecond.Unit
 {
 	public class Stat
 	{
@@ -8,9 +8,6 @@ namespace OneSecond
 		{
 			Current = Max = max;
 		}
-
-		public Stat()
-		{ }
 
 		private int _current;
 		public int Current

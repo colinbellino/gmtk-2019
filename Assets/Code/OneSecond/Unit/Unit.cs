@@ -1,4 +1,4 @@
-namespace OneSecond
+namespace OneSecond.Unit
 {
 	public class Unit
 	{
@@ -11,27 +11,12 @@ namespace OneSecond
 		{
 			Name = name;
 			Alliance = alliance;
-			Health = new Stat();
+			SetHealth(1);
 		}
 
 		public void SetHealth(int baseHealth)
 		{
 			Health = new Stat(baseHealth);
 		}
-	}
-
-	public enum Alliances
-	{
-		Ally,
-		Foe
-	}
-
-	public enum Abilities
-	{
-		None,
-		LightPunch,
-		WenkPunch,
-		LightHeal,
-		StrongHeal
 	}
 }

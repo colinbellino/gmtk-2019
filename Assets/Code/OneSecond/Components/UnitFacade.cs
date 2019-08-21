@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using OneSecond.Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +17,9 @@ namespace OneSecond.Components
 		[SerializeField] private Slider healthSlider;
 		[SerializeField] private AudioSource audioSource;
 
-		public Unit Data { get; private set; }
+		public Unit.Unit Data { get; private set; }
 
-		public void Init(Unit unit)
+		public void Init(Unit.Unit unit)
 		{
 			Data = unit;
 			Data.SetHealth(health);

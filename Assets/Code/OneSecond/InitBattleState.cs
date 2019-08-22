@@ -23,7 +23,8 @@ namespace OneSecond
 			};
 			_manager.Foes = GenerateRandomFoes();
 
-			_manager.ChangeState(BattleStates.CpuTurn);
+			_manager.ChangeState(BattleStates.PlayerTurn);
+			// _manager.ChangeState(BattleStates.CpuTurn);
 		}
 
 		private List<UnitFacade> GenerateRandomFoes()

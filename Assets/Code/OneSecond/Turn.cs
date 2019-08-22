@@ -9,16 +9,11 @@ namespace OneSecond
 
 		private readonly BattleStateManager _manager;
 
+		public bool DidAct { get; private set; }
+
 		public Turn(BattleStateManager manager)
 		{
 			_manager = manager;
-
-			Action = new BattleAction();
-		}
-
-		public void EndRound()
-		{
-			Action = null;
 		}
 
 		public void Act()
@@ -46,6 +41,14 @@ namespace OneSecond
 
 			var color = Action.Initiator.Data.Alliance == Alliances.Ally ? "blue" : "red";
 			Debug.Log($"<color={color}>---({Action.Ability.ToString()})---> {Action.Target.Data.Name}</color>");
+
+			DidAct = true;
+		}
+
+		public void EndRound()
+		{
+			Action = null;
+			DidAct = false;
 		}
 	}
 }

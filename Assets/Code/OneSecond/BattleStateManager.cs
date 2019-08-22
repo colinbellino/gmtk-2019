@@ -4,42 +4,38 @@ using OneSecond.Components;
 using OneSecond.Unit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace OneSecond
 {
-	public class BattleStateManager
+	public class BattleStateManager : IInitializable, ITickable
 	{
-		private readonly Dictionary<BattleStates, IBattleState> _states;
+		[Inject] private readonly IBattleState _playerTurnState;
+		[Inject] private readonly IBattleState _cpuTurnState;
+		[Inject] public readonly UiFacade UiFacade;
+		[Inject] public readonly AsyncGenerator AsyncGenerator;
+		[Inject] private readonly AudioSource _audioSource;
+		[Inject] public Camera Camera;
+
+		private Dictionary<BattleStates, IBattleState> _states;
 
 		private BattleStates _currentState;
 		private IBattleState _currentStateHandler;
-		private readonly AudioSource _audioSource;
 
-		public readonly MonoBehaviour AsyncGenerator;
-		public Camera Camera;
-		public readonly UiFacade UiFacade;
 		public int CurrentAllyIndex;
 		public int CurrentFoeIndex;
 		public List<UnitFacade> Allies = new List<UnitFacade>();
 		public List<UnitFacade> Foes = new List<UnitFacade>();
 
-		public BattleStateManager(MonoBehaviour asyncGenerator, UiFacade uiFacade, AudioSource audioSource)
+		public void Initialize()
 		{
-			UiFacade = uiFacade;
-			AsyncGenerator = asyncGenerator;
-			_audioSource = audioSource;
-
 			_states = new Dictionary<BattleStates, IBattleState>
 			{
+				// TODO: Inject this
 				{ BattleStates.Init, new InitBattleState(this) },
-				{ BattleStates.PlayerTurn, new PlayerTurnState(this) },
-				{ BattleStates.CpuTurn, new CpuTurnState(this) }
+				{ BattleStates.PlayerTurn, _playerTurnState },
+				{ BattleStates.CpuTurn, _cpuTurnState },
 			};
-		}
-
-		public void Init()
-		{
-			Camera = Camera.main;
 
 			this.AddObserver(OnUnitDied, UnitFacade.DiedNotification);
 

@@ -1,20 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace OneSecond.Components
 {
 	public class BattleManager : MonoBehaviour
 	{
-		private BattleStateManager _stateManager;
-
-		[SerializeField] private UiFacade uiFacade;
-		[SerializeField] private AudioSource audioSource;
-
-		public void Start()
-		{
-			_stateManager = new BattleStateManager(this, uiFacade, audioSource);
-			_stateManager.Init();
-		}
+		[Inject] private BattleStateManager _stateManager;
 
 		public void Update()
 		{
@@ -24,8 +16,6 @@ namespace OneSecond.Components
 				SceneManager.LoadScene("Battle");
 			}
 #endif
-
-			_stateManager.Tick();
 		}
 
 		public void OnDestroy()
